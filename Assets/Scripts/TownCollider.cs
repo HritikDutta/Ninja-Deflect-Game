@@ -11,7 +11,7 @@ public class TownCollider : MonoBehaviour
 
     private void Start()
     {
-        health = maxHealth;
+        ResetTown();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,7 +25,12 @@ public class TownCollider : MonoBehaviour
         if (health <= 0f)
         {
             UIController.instance.gameOverScreen.SetActive(true);
-            spawner.keepSpawning = false;
+            spawner.StopSpawning();
         }
+    }
+
+    public void ResetTown()
+    {
+        health = maxHealth;
     }
 }

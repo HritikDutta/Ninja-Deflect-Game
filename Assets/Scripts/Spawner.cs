@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -26,15 +27,16 @@ public class Spawner : MonoBehaviour
     [SerializeField] private SpawnObjectParameters enemySpawnParameters;
     [SerializeField] private SpawnObjectBehvaiour  enemyBehaviour;
 
-    public bool keepSpawning = true;
     private List<GameObject> spawnedProjectiles = new List<GameObject>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
 
+    private Coroutine projectileSpawnerCoroutine;
+    private Coroutine enemySpawnerCoroutine;
+
     private void Start()
     {
-        StartCoroutine(SpawnProjectiles());
-        StartCoroutine(SpawnEnemies());
         SetupSpawnPoints();
+        ResetSpawning();
     }
 
     void Update()
@@ -58,7 +60,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnProjectiles()
     {
-        while (keepSpawning)
+        while (true)
         {
             spawnedProjectiles.Add(Instantiate(projectileSpawnParameters.prefab, GetRandomSpawnPoint(projectileSpawnParameters.spawnPoints), Quaternion.identity));
             yield return new WaitForSeconds(projectileSpawnParameters.spawnInterval);
@@ -67,7 +69,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
-        while (keepSpawning)
+        while (true)
         {
             spawnedEnemies.Add(Instantiate(enemySpawnParameters.prefab, GetRandomSpawnPoint(enemySpawnParameters.spawnPoints), Quaternion.identity));
             yield return new WaitForSeconds(enemySpawnParameters.spawnInterval);
@@ -95,6 +97,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    // Pls don't give some other object :(
     public void DespawnObject(GameObject gameObject, out float damage)
     {
         damage = 0f;
@@ -105,6 +108,32 @@ public class Spawner : MonoBehaviour
             damage = enemyBehaviour.damage;
 
         Destroy(gameObject);
+    }
+
+    public void StopSpawning()
+    {
+        StopCoroutine(projectileSpawnerCoroutine);
+        StopCoroutine(enemySpawnerCoroutine);
+    }
+
+    public void ResetSpawning()
+    {
+        {   // Projectiles
+            foreach (GameObject projectile in spawnedProjectiles)
+                Destroy(projectile);
+
+            spawnedProjectiles.Clear();
+        }
+
+        {   // Enemies
+            foreach (GameObject enemy in spawnedEnemies)
+                Destroy(enemy);
+
+            spawnedEnemies.Clear();
+        }
+
+        projectileSpawnerCoroutine = StartCoroutine(SpawnProjectiles());
+        enemySpawnerCoroutine      = StartCoroutine(SpawnEnemies());
     }
 
     [ContextMenu("Setup Spawn Points")]
