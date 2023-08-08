@@ -585,3 +585,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   spawner: {fileID: 0}
+  maxHealth: 100
