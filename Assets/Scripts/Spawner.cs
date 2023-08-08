@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -27,8 +27,13 @@ public class Spawner : MonoBehaviour
     [SerializeField] private SpawnObjectParameters enemySpawnParameters;
     [SerializeField] private SpawnObjectBehvaiour  enemyBehaviour;
 
+    [SerializeField] private int enemyMaxHealth = 1;
+
     private List<GameObject> spawnedProjectiles = new List<GameObject>();
+
+    private List<TextMeshPro> enemyHealthTexts = new List<TextMeshPro>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private List<int> enemyHealths = new List<int>();
 
     private Coroutine projectileSpawnerCoroutine;
     private Coroutine enemySpawnerCoroutine;
@@ -71,7 +76,14 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            spawnedEnemies.Add(Instantiate(enemySpawnParameters.prefab, GetRandomSpawnPoint(enemySpawnParameters.spawnPoints), Quaternion.identity));
+            GameObject enemy = Instantiate(enemySpawnParameters.prefab, GetRandomSpawnPoint(enemySpawnParameters.spawnPoints), Quaternion.identity);
+            TextMeshPro healthText = enemy.GetComponentInChildren<TextMeshPro>();
+            healthText.text = enemyMaxHealth.ToString();
+
+            enemyHealths.Add(enemyMaxHealth);
+            enemyHealthTexts.Add(healthText);
+            spawnedEnemies.Add(enemy);
+
             yield return new WaitForSeconds(enemySpawnParameters.spawnInterval);
         }
     }
@@ -104,10 +116,42 @@ public class Spawner : MonoBehaviour
 
         if (spawnedProjectiles.Remove(gameObject))
             damage = projectileBehaviour.damage;
-        else if (spawnedEnemies.Remove(gameObject))
+        else
+        {
+            int enemyIndex = spawnedEnemies.FindIndex((GameObject o) => o == gameObject);
+            if (enemyIndex < 0)
+                Debug.LogError($"Couldn't identify the object {gameObject} as a projectile or an enemy!");
+
+            spawnedEnemies.RemoveAt(enemyIndex);
+            enemyHealths.RemoveAt(enemyIndex);
+            enemyHealthTexts.RemoveAt(enemyIndex);
             damage = enemyBehaviour.damage;
+        }
 
         Destroy(gameObject);
+    }
+
+    public void DeflectProjectile(GameObject gameObject)
+    {
+        // TODO: Snap the projectile to the target
+        spawnedProjectiles.Remove(gameObject);
+        Destroy(gameObject);
+
+        if (spawnedEnemies.Count <= 0)
+            return;
+
+        // The first enemy in the list would be the nearest to the town
+        enemyHealths[0]--;
+        enemyHealthTexts[0].text = enemyHealths[0].ToString();
+
+        if (enemyHealths[0] <= 0)
+        {
+            Destroy(spawnedEnemies[0]);
+
+            spawnedEnemies.RemoveAt(0);
+            enemyHealths.RemoveAt(0);
+            enemyHealthTexts.RemoveAt(0);
+        }
     }
 
     public void StopSpawning()
@@ -130,6 +174,8 @@ public class Spawner : MonoBehaviour
                 Destroy(enemy);
 
             spawnedEnemies.Clear();
+            enemyHealths.Clear();
+            enemyHealthTexts.Clear();
         }
 
         projectileSpawnerCoroutine = StartCoroutine(SpawnProjectiles());

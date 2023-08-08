@@ -21,10 +21,12 @@ public class TownCollider : MonoBehaviour
 
         spawner.DespawnObject(other.gameObject, out float damage);
         health -= damage;
+        UIController.instance.townHealthUISlider.value = health / maxHealth;
 
         if (health <= 0f)
         {
             UIController.instance.gameOverScreen.SetActive(true);
+            InputController.SetEnabled(false);
             spawner.StopSpawning();
         }
     }
@@ -32,5 +34,6 @@ public class TownCollider : MonoBehaviour
     public void ResetTown()
     {
         health = maxHealth;
+        UIController.instance.townHealthUISlider.value = health / maxHealth;
     }
 }

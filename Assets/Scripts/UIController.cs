@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     public static UIController instance { get; private set; }
 
     public GameObject gameOverScreen;
+    public Slider townHealthUISlider;
 
     private void Start()
     {
