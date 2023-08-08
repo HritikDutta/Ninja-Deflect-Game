@@ -11,13 +11,22 @@ public class Spawner : MonoBehaviour
         public GameObject prefab;
         public float spawnInterval;
         public Vector3[] spawnPoints;
+    }
+
+    [System.Serializable]
+    public struct SpawnObjectBehvaiour
+    {
+        public float damage;
         public float moveSpeed;
     }
 
     [SerializeField] private SpawnObjectParameters projectileSpawnParameters;
-    [SerializeField] private SpawnObjectParameters enemySpawnParameters;
+    [SerializeField] private SpawnObjectBehvaiour  projectileBehaviour;
 
-    private bool keepSpawning = true;
+    [SerializeField] private SpawnObjectParameters enemySpawnParameters;
+    [SerializeField] private SpawnObjectBehvaiour  enemyBehaviour;
+
+    public bool keepSpawning = true;
     private List<GameObject> spawnedProjectiles = new List<GameObject>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
 
@@ -31,7 +40,7 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         {   // Projectiles
-            Vector3 movement = projectileSpawnParameters.moveSpeed * Time.deltaTime * Vector3.back;
+            Vector3 movement = projectileBehaviour.moveSpeed * Time.deltaTime * Vector3.back;
             foreach (GameObject projectile in spawnedProjectiles)
             {
                 projectile.transform.position += movement;
@@ -39,7 +48,7 @@ public class Spawner : MonoBehaviour
         }
 
         {   // Projectiles
-            Vector3 movement = enemySpawnParameters.moveSpeed * Time.deltaTime * Vector3.back;
+            Vector3 movement = enemyBehaviour.moveSpeed * Time.deltaTime * Vector3.back;
             foreach (GameObject enemy in spawnedEnemies)
             {
                 enemy.transform.position += movement;
@@ -86,10 +95,16 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void DespawnObject(GameObject gameObject)
+    public void DespawnObject(GameObject gameObject, out float damage)
     {
-        if (spawnedProjectiles.Remove(gameObject) || spawnedEnemies.Remove(gameObject))
-            Destroy(gameObject);
+        damage = 0f;
+
+        if (spawnedProjectiles.Remove(gameObject))
+            damage = projectileBehaviour.damage;
+        else if (spawnedEnemies.Remove(gameObject))
+            damage = enemyBehaviour.damage;
+
+        Destroy(gameObject);
     }
 
     [ContextMenu("Setup Spawn Points")]
