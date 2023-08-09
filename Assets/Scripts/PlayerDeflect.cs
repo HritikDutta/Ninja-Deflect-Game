@@ -30,7 +30,7 @@ public class PlayerDeflect : MonoBehaviour
         }
         else
         {
-            Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+            Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(0f, 1f));
             projectile.Deflect(randomDirection.normalized);
         }
     }
