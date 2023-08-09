@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour, IDamageDealer
     private TextMeshPro healthText;
     private int health;
 
+    HashSet<Projectile> hitProjectiles = new HashSet<Projectile>();
+
     private void Awake()
     {
         health = GameSettings.instance.enemyMaxHealth;
@@ -34,18 +36,19 @@ public class Enemy : MonoBehaviour, IDamageDealer
         deflectedProjectiles.Add(projectile);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (((1 << collision.gameObject.layer) & projectileLayerMask) == 0)
             return;
 
         Projectile projectile = collision.gameObject.GetComponent<Projectile>();
 
-        // Only take damage from deflected projectiles
-        if (!projectile.deflected)
+        // Only take damage from unquie and deflected projectiles
+        if (!projectile.deflected || hitProjectiles.Contains(projectile))
             return;
 
         deflectedProjectiles.Remove(projectile);
+        hitProjectiles.Add(projectile);
         //Destroy(collision.gameObject);
 
         health--;

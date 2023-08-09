@@ -47,5 +47,5 @@ public class Projectile : MonoBehaviour, IDamageDealer
         return difference.sqrMagnitude > despawnRadius * despawnRadius;
     }
 
-    public float Damage => GameSettings.instance.projectileParameters.damage;
+    public float Damage => deflected ? GameSettings.instance.projectileParameters.damage : 0f;
 }

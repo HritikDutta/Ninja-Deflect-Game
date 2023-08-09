@@ -123,65 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &95905912
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 95905913}
-  - component: {fileID: 95905915}
-  - component: {fileID: 95905914}
-  m_Layer: 10
-  m_Name: Boundary
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &95905913
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95905912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.56}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1186989951}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &95905914
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95905912}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.9407897}
-  m_Center: {x: 0, y: 0, z: 2.0131533}
---- !u!65 &95905915
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95905912}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.55592203}
-  m_Center: {x: 0, y: 0, z: 0.12582207}
 --- !u!1 &106598010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usePCControls: 1
-  joystickMaxRadius: 250
+  joystickMaxRadius: 150
   joystickActivationCurve:
     serializedVersion: 2
     m_Curve:
@@ -1042,7 +983,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.05
+      time: 0.025
       value: 0
       inSlope: Infinity
       outSlope: -0.011551791
@@ -1051,7 +992,7 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.81666666
     - serializedVersion: 3
-      time: 0.3
+      time: 0.18
       value: 1
       inSlope: -0
       outSlope: Infinity
@@ -1111,11 +1052,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -5}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &1186989951 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5841642302473547660, guid: 43be09bc52bfd7c44b48af104e7d7b63, type: 3}
-  m_PrefabInstance: {fileID: 5841642302572667465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1213409986
 GameObject:
   m_ObjectHideFlags: 0
