@@ -753,7 +753,7 @@ Transform:
   m_GameObject: {fileID: 898919267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1, z: 4.869}
-  m_LocalScale: {x: 0.7, y: 0.1, z: 0.2}
+  m_LocalScale: {x: 0.5, y: 0.1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -772,26 +772,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnParameters:
-    rowCount: 6
+    rowCount: 7
     prefab: {fileID: 2835885199518986601, guid: b8b4d016e5636104e82a7059a27b9bee, type: 3}
     spawnInterval: 0.26966667
     spawnDelay: 0
     spawnPoints:
-    - {x: -0.35, y: 0.1, z: 4.869}
-    - {x: -0.23333332, y: 0.1, z: 4.869}
-    - {x: -0.11666665, y: 0.1, z: 4.869}
+    - {x: -0.25, y: 0.1, z: 4.869}
+    - {x: -0.16666666, y: 0.1, z: 4.869}
+    - {x: -0.08333332, y: 0.1, z: 4.869}
     - {x: 0.000000014901161, y: 0.1, z: 4.869}
-    - {x: 0.11666668, y: 0.1, z: 4.869}
-    - {x: 0.23333335, y: 0.1, z: 4.869}
+    - {x: 0.08333335, y: 0.1, z: 4.869}
+    - {x: 0.16666669, y: 0.1, z: 4.869}
+    - {x: 0.25000003, y: 0.1, z: 4.869}
   enemySpawnParameters:
     rowCount: 3
     prefab: {fileID: 4874109497345891070, guid: ddd414c9bea552c4cb4b8f9a4a69819f, type: 3}
     spawnInterval: 1.618
     spawnDelay: 0.4
     spawnPoints:
-    - {x: -0.23333333, y: 0.1, z: 5.369}
+    - {x: -0.25, y: 0.1, z: 5.369}
     - {x: 0, y: 0.1, z: 5.369}
-    - {x: 0.23333333, y: 0.1, z: 5.369}
+    - {x: 0.25, y: 0.1, z: 5.369}
   spawnedProjectiles: []
   spawnedEnemies: []
 --- !u!1 &1006433137
