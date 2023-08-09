@@ -19,6 +19,7 @@ public class InputController : MonoBehaviour
 
     private Vector2 joystickStartPosition;
     private bool inputEnabled = true;
+    private bool joystickInputActive = false;
 
     private void Awake()
     {
@@ -60,19 +61,20 @@ public class InputController : MonoBehaviour
     void HandleJoystickInput()
     {
         JoystickInputRaw = JoystickInput = Vector2.zero;
+        Vector2 mousePosition = Input.mousePosition;
 
 #if UNITY_EDITOR
         if (usePCControls)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && IsPositionInJoystickArea(mousePosition))
             {
-                joystickStartPosition = Input.mousePosition;
+                joystickStartPosition = mousePosition;
                 joystickParent.SetActive(true);
+                joystickInputActive = true;
             }
 
-            if (Input.GetMouseButton(0))
+            if (joystickInputActive && Input.GetMouseButton(0))
             {
-                Vector2 mousePosition = Input.mousePosition;
                 Vector2 motion = mousePosition - joystickStartPosition;
 
                 float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
@@ -82,7 +84,10 @@ public class InputController : MonoBehaviour
             }
 
             if (Input.GetMouseButtonUp(0))
+            {
                 joystickParent.SetActive(false);
+                joystickInputActive = false;
+            }
         }
         else
 #endif
@@ -93,26 +98,33 @@ public class InputController : MonoBehaviour
             {
                 case TouchPhase.Began:
                     {
-                        joystickStartPosition = Input.mousePosition;
-                        joystickParent.SetActive(true);
+                        if (IsPositionInJoystickArea(mousePosition))
+                        {
+                            joystickStartPosition = mousePosition;
+                            joystickParent.SetActive(true);
+                            joystickInputActive = true;
+                        }
                         break;
                     }
 
                 case TouchPhase.Moved:
                     {
-                        Vector2 mousePosition = Input.mousePosition;
-                        Vector2 motion = mousePosition - joystickStartPosition;
+                        if (joystickInputActive)
+                        {
+                            Vector2 motion = mousePosition - joystickStartPosition;
 
-                        float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
+                            float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
 
-                        JoystickInputRaw = t * motion.normalized;
-                        JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
+                            JoystickInputRaw = t * motion.normalized;
+                            JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
+                        }
                         break;
                     }
 
                 case TouchPhase.Ended:
                     {
                         joystickParent.SetActive(false);
+                        joystickInputActive = false;
                         break;
                     }
             }
@@ -122,6 +134,12 @@ public class InputController : MonoBehaviour
     private void UpdateJoystickBackgroundSize()
     {
         joystickBackground.sizeDelta = new Vector2(2 * joystickMaxRadius, 2 * joystickMaxRadius);
+    }
+
+    private bool IsPositionInJoystickArea(Vector2 position)
+    {
+        Bounds bounds = new Bounds(new Vector3(540f, 480f, 0f), new Vector3(1080f, 480f, 0f));
+        return bounds.Contains(position);
     }
 
     public static Vector2 JoystickInput { get; private set; }

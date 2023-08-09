@@ -8,6 +8,8 @@ public class UIController : MonoBehaviour
     public GameObject gameOverScreen;
     public Slider townHealthUISlider;
 
+    public Button[] powerUps;
+
     private void Awake()
     {
         // Only one instance allowed >:(
