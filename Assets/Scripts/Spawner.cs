@@ -151,7 +151,7 @@ public class Spawner : MonoBehaviour
     void SetupSpawnPoints()
     {
         {   // Projectiles
-            float offset = transform.localScale.x / (projectileSpawnParameters.rowCount - 1);
+            float offset = projectileSpawnParameters.rowCount > 1 ? transform.localScale.x / (projectileSpawnParameters.rowCount - 1) : 0f;
             Vector3 point = transform.position;
             point.x -= offset * (projectileSpawnParameters.rowCount / 2);
 

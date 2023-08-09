@@ -31,10 +31,16 @@ public class GameSettings : MonoBehaviour
     public BehaviourParameters enemyParameters;
     public int enemyMaxHealth = 5;
 
+    [Header("Enemy Projectile Drops")]
     public int enemyProjectileDropCount = 3;
     public float enemyProjectileDropGap = 0.2f;
     public float enemyProjectileDropChance = 0.3f;
 
     [Header("Town Settings")]
     public float townMaxHealth = 100;
+
+    [Header("Power Up Settings")]
+    public float powerUpExpandSpeed = 2f;
+    public float powerUpMaxRadius = 4f;
+    public float powerUpHealAmount = 20f;
 }

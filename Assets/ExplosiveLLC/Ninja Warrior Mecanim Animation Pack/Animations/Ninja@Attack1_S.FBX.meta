@@ -451,7 +451,7 @@ ModelImporter:
       - path: 
         weight: 1
       - path: Exporter
-        weight: 1
+        weight: 0
       - path: Motion
         weight: 1
       - path: Motion/B_Pelvis

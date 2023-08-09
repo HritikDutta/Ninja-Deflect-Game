@@ -138,8 +138,8 @@ public class InputController : MonoBehaviour
 
     private bool IsPositionInJoystickArea(Vector2 position)
     {
-        Bounds bounds = new Bounds(new Vector3(540f, 480f, 0f), new Vector3(1080f, 480f, 0f));
-        return bounds.Contains(position);
+        // Don't ovelap with the buttons at the bottom of the screen
+        return position.y > 240f;
     }
 
     public static Vector2 JoystickInput { get; private set; }
