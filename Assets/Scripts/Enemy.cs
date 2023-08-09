@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
             return;
 
         deflectedProjectiles.Remove(projectile);
-        Destroy(collision.gameObject);
+        //Destroy(collision.gameObject);
 
         health--;
         healthText.text = health.ToString();

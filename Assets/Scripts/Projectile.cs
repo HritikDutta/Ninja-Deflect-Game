@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour, IDamageDealer
         deflected = true;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         float speed = deflected ? GameSettings.instance.projectileDeflectSpeed : GameSettings.instance.projectileParameters.moveSpeed;
         transform.position += speed * Time.deltaTime * moveDirection;
