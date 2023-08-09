@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8490566, g: 0.12415449, b: 0.12415449, a: 0.8352941}
+  m_Color: {r: 0.12549017, g: 0.1904222, b: 0.8509804, a: 0.8352941}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -785,9 +785,6 @@ MonoBehaviour:
     - {x: 0.15555555, y: 0.1, z: 4.869}
     - {x: 0.23333332, y: 0.1, z: 4.869}
     - {x: 0.3111111, y: 0.1, z: 4.869}
-  projectileBehaviour:
-    damage: 5
-    moveSpeed: 0.45
   enemySpawnParameters:
     rowCount: 3
     prefab: {fileID: 4874109497345891070, guid: ddd414c9bea552c4cb4b8f9a4a69819f, type: 3}
@@ -796,10 +793,61 @@ MonoBehaviour:
     - {x: -0.23333333, y: 0.1, z: 4.869}
     - {x: 0, y: 0.1, z: 4.869}
     - {x: 0.23333333, y: 0.1, z: 4.869}
-  enemyBehaviour:
-    damage: 25
+  spawnedProjectiles: []
+  spawnedEnemies: []
+--- !u!1 &1006433137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1006433139}
+  - component: {fileID: 1006433138}
+  m_Layer: 0
+  m_Name: GameSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1006433138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006433137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1125366907c22454793ad298328166ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileParameters:
+    damage: 1
+    moveSpeed: 0.8
+  enemyParameters:
+    damage: 10
     moveSpeed: 0.15
+  projectileDeflectSpeed: 1.2
   enemyMaxHealth: 5
+  townMaxHealth: 100
+--- !u!4 &1006433139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006433137}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1060037309
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,6 +968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c7e40498afdf941b01ca9f7a6726ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePCControls: 1
   joystickMaxRadius: 250
   joystickActivationCurve:
     serializedVersion: 2
@@ -1881,10 +1930,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2372677783329387147, guid: 43be09bc52bfd7c44b48af104e7d7b63, type: 3}
-      propertyPath: spawner
-      value: 
-      objectReference: {fileID: 898919271}
     - target: {fileID: 5841642302473547660, guid: 43be09bc52bfd7c44b48af104e7d7b63, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1942,10 +1987,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7819023652287775759, guid: 6e24a49a4f2483c42b72aa103c32c190, type: 3}
-      propertyPath: spawner
-      value: 
-      objectReference: {fileID: 898919271}
     - target: {fileID: 7819023653320244209, guid: 6e24a49a4f2483c42b72aa103c32c190, type: 3}
       propertyPath: m_RootOrder
       value: 6

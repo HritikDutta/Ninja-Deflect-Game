@@ -42,11 +42,11 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
@@ -76,7 +76,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
+  m_SkinnedMotionVectors: 0
   m_Mesh: {fileID: 2326903631788377288, guid: 24bdb7cc7a8d8a745a84df6c531bc19d, type: 3}
   m_Bones:
   - {fileID: 3539337348911321205}
@@ -1897,11 +1897,11 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
@@ -1931,7 +1931,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
+  m_SkinnedMotionVectors: 0
   m_Mesh: {fileID: -1271136507545780664, guid: 24bdb7cc7a8d8a745a84df6c531bc19d, type: 3}
   m_Bones:
   - {fileID: 3539337348911321153}
@@ -2005,7 +2005,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2.0324204, z: 3.2747386}
+  m_Size: {x: 2.1027925, y: 2.0324204, z: 3.2747386}
   m_Center: {x: 0, y: 0.029863492, z: 0.88736904}
 --- !u!114 &7819023652287775759
 MonoBehaviour:
@@ -2022,7 +2022,6 @@ MonoBehaviour:
   projectileLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  spawner: {fileID: 0}
 --- !u!1 &7819023653320244213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,7 +2065,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7819023653320244213}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8bac504c212aa354a93dce19da314939, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -2088,7 +2087,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &1396116527
 MonoBehaviour:
   m_ObjectHideFlags: 0

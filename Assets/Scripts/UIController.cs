@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     public GameObject gameOverScreen;
     public Slider townHealthUISlider;
 
-    private void Start()
+    private void Awake()
     {
         // Only one instance allowed >:(
         if (instance != null)

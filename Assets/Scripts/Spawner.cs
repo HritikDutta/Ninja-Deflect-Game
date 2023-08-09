@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner instance;
+
     [System.Serializable]
     public struct SpawnObjectParameters
     {
@@ -14,29 +15,26 @@ public class Spawner : MonoBehaviour
         public Vector3[] spawnPoints;
     }
 
-    [System.Serializable]
-    public struct SpawnObjectBehvaiour
-    {
-        public float damage;
-        public float moveSpeed;
-    }
-
     [SerializeField] private SpawnObjectParameters projectileSpawnParameters;
-    [SerializeField] private SpawnObjectBehvaiour  projectileBehaviour;
-
     [SerializeField] private SpawnObjectParameters enemySpawnParameters;
-    [SerializeField] private SpawnObjectBehvaiour  enemyBehaviour;
 
-    [SerializeField] private int enemyMaxHealth = 1;
-
-    private List<GameObject> spawnedProjectiles = new List<GameObject>();
-
-    private List<TextMeshPro> enemyHealthTexts = new List<TextMeshPro>();
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
-    private List<int> enemyHealths = new List<int>();
+    public List<GameObject> spawnedProjectiles = new List<GameObject>();
+    public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private Coroutine projectileSpawnerCoroutine;
     private Coroutine enemySpawnerCoroutine;
+
+    private void Awake()
+    {
+        // Only one instance allowed >:(
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     private void Start()
     {
@@ -44,30 +42,15 @@ public class Spawner : MonoBehaviour
         ResetSpawning();
     }
 
-    void Update()
-    {
-        {   // Projectiles
-            Vector3 movement = projectileBehaviour.moveSpeed * Time.deltaTime * Vector3.back;
-            foreach (GameObject projectile in spawnedProjectiles)
-            {
-                projectile.transform.position += movement;
-            }
-        }
-
-        {   // Projectiles
-            Vector3 movement = enemyBehaviour.moveSpeed * Time.deltaTime * Vector3.back;
-            foreach (GameObject enemy in spawnedEnemies)
-            {
-                enemy.transform.position += movement;
-            }
-        }
-    }
-
     IEnumerator SpawnProjectiles()
     {
         while (true)
         {
-            spawnedProjectiles.Add(Instantiate(projectileSpawnParameters.prefab, GetRandomSpawnPoint(projectileSpawnParameters.spawnPoints), Quaternion.identity));
+            GameObject go = Instantiate(projectileSpawnParameters.prefab, GetRandomSpawnPoint(projectileSpawnParameters.spawnPoints), Quaternion.identity);
+            Projectile projectile = go.AddComponent<Projectile>();
+            projectile.StartMoving();
+
+            spawnedProjectiles.Add(go);
             yield return new WaitForSeconds(projectileSpawnParameters.spawnInterval);
         }
     }
@@ -76,14 +59,10 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            GameObject enemy = Instantiate(enemySpawnParameters.prefab, GetRandomSpawnPoint(enemySpawnParameters.spawnPoints), Quaternion.identity);
-            TextMeshPro healthText = enemy.GetComponentInChildren<TextMeshPro>();
-            healthText.text = enemyMaxHealth.ToString();
+            GameObject go = Instantiate(enemySpawnParameters.prefab, GetRandomSpawnPoint(enemySpawnParameters.spawnPoints), Quaternion.identity);
+            Enemy enemy = go.AddComponent<Enemy>();
 
-            enemyHealths.Add(enemyMaxHealth);
-            enemyHealthTexts.Add(healthText);
-            spawnedEnemies.Add(enemy);
-
+            spawnedEnemies.Add(go);
             yield return new WaitForSeconds(enemySpawnParameters.spawnInterval);
         }
     }
@@ -109,55 +88,20 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    // Pls don't give some other object :(
-    public void DespawnObject(GameObject gameObject, out float damage)
-    {
-        damage = 0f;
-
-        if (spawnedProjectiles.Remove(gameObject))
-            damage = projectileBehaviour.damage;
-        else
-        {
-            int enemyIndex = spawnedEnemies.FindIndex((GameObject o) => o == gameObject);
-            if (enemyIndex < 0)
-                Debug.LogError($"Couldn't identify the object {gameObject} as a projectile or an enemy!");
-
-            spawnedEnemies.RemoveAt(enemyIndex);
-            enemyHealths.RemoveAt(enemyIndex);
-            enemyHealthTexts.RemoveAt(enemyIndex);
-            damage = enemyBehaviour.damage;
-        }
-
-        Destroy(gameObject);
-    }
-
-    public void DeflectProjectile(GameObject gameObject)
-    {
-        // TODO: Snap the projectile to the target
-        spawnedProjectiles.Remove(gameObject);
-        Destroy(gameObject);
-
-        if (spawnedEnemies.Count <= 0)
-            return;
-
-        // The first enemy in the list would be the nearest to the town
-        enemyHealths[0]--;
-        enemyHealthTexts[0].text = enemyHealths[0].ToString();
-
-        if (enemyHealths[0] <= 0)
-        {
-            Destroy(spawnedEnemies[0]);
-
-            spawnedEnemies.RemoveAt(0);
-            enemyHealths.RemoveAt(0);
-            enemyHealthTexts.RemoveAt(0);
-        }
-    }
-
     public void StopSpawning()
     {
         StopCoroutine(projectileSpawnerCoroutine);
         StopCoroutine(enemySpawnerCoroutine);
+    }
+
+    public void DespawnEnemy(GameObject enemy)
+    {
+        spawnedEnemies.Remove(enemy);
+    }
+
+    public void DespawnProjectile(GameObject projectile)
+    {
+        spawnedProjectiles.Remove(projectile);
     }
 
     public void ResetSpawning()
@@ -174,8 +118,6 @@ public class Spawner : MonoBehaviour
                 Destroy(enemy);
 
             spawnedEnemies.Clear();
-            enemyHealths.Clear();
-            enemyHealthTexts.Clear();
         }
 
         projectileSpawnerCoroutine = StartCoroutine(SpawnProjectiles());

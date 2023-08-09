@@ -4,8 +4,12 @@ public class InputController : MonoBehaviour
 {
     public static InputController instance { get; private set; }
 
-    [SerializeField] private float joystickMaxRadius = 10f;
+#if UNITY_EDITOR
+    [SerializeField] private bool usePCControls = true;
+#endif
 
+    [Header("Joystick Settings")]
+    [SerializeField] private float joystickMaxRadius = 10f;
     [SerializeField] private AnimationCurve joystickActivationCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
     [Header("Joystick Visuals")]
@@ -16,7 +20,7 @@ public class InputController : MonoBehaviour
     private Vector2 joystickStartPosition;
     private bool inputEnabled = true;
 
-    private void Start()
+    private void Awake()
     {
         // Only one instance allowed >:(
         if (instance != null)
@@ -28,6 +32,7 @@ public class InputController : MonoBehaviour
         instance = this;
 
         joystickParent.SetActive(false);
+        UpdateJoystickBackgroundSize();
     }
 
     void Update()
@@ -43,31 +48,42 @@ public class InputController : MonoBehaviour
         joystickHead.position = joystickStartPosition + joystickMaxRadius * JoystickInputRaw;
     }
 
+#if UNITY_EDITOR
+    private void LateUpdate()
+    {
+        UpdateJoystickBackgroundSize();
+    }
+#endif
+
     void HandleJoystickInput()
     {
         JoystickInputRaw = JoystickInput = Vector2.zero;
 
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
+        if (usePCControls)
         {
-            joystickStartPosition = Input.mousePosition;
-            joystickParent.SetActive(true);
+            if (Input.GetMouseButtonDown(0))
+            {
+                joystickStartPosition = Input.mousePosition;
+                joystickParent.SetActive(true);
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                Vector2 mousePosition = Input.mousePosition;
+                Vector2 motion = mousePosition - joystickStartPosition;
+
+                float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
+
+                JoystickInputRaw = t * motion.normalized;
+                JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+                joystickParent.SetActive(false);
         }
-
-        if (Input.GetMouseButton(0))
-        {
-            Vector2 mousePosition = Input.mousePosition;
-            Vector2 motion = mousePosition - joystickStartPosition;
-
-            float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
-
-            JoystickInputRaw = t * motion.normalized;
-            JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-            joystickParent.SetActive(false);
-#else
+        else
+#endif
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -99,7 +115,11 @@ public class InputController : MonoBehaviour
                     }
             }
         }
-#endif
+    }
+
+    private void UpdateJoystickBackgroundSize()
+    {
+        joystickBackground.sizeDelta = new Vector2(2 * joystickMaxRadius, 2 * joystickMaxRadius);
     }
 
     public static Vector2 JoystickInput { get; private set; }

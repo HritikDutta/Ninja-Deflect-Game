@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         targetPosition.z += movement.y;
 
         rb.MovePosition(targetPosition);
+        rb.velocity = Vector3.zero;
     }
 
     public void ResetPlayer()
