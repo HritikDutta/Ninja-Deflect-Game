@@ -772,27 +772,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawnParameters:
-    rowCount: 9
+    rowCount: 6
     prefab: {fileID: 2835885199518986601, guid: b8b4d016e5636104e82a7059a27b9bee, type: 3}
-    spawnInterval: 0.6
+    spawnInterval: 0.26966667
+    spawnDelay: 0
     spawnPoints:
-    - {x: -0.3111111, y: 0.1, z: 4.869}
+    - {x: -0.35, y: 0.1, z: 4.869}
     - {x: -0.23333332, y: 0.1, z: 4.869}
-    - {x: -0.15555555, y: 0.1, z: 4.869}
-    - {x: -0.07777777, y: 0.1, z: 4.869}
-    - {x: 0, y: 0.1, z: 4.869}
-    - {x: 0.07777777, y: 0.1, z: 4.869}
-    - {x: 0.15555555, y: 0.1, z: 4.869}
-    - {x: 0.23333332, y: 0.1, z: 4.869}
-    - {x: 0.3111111, y: 0.1, z: 4.869}
+    - {x: -0.11666665, y: 0.1, z: 4.869}
+    - {x: 0.000000014901161, y: 0.1, z: 4.869}
+    - {x: 0.11666668, y: 0.1, z: 4.869}
+    - {x: 0.23333335, y: 0.1, z: 4.869}
   enemySpawnParameters:
     rowCount: 3
     prefab: {fileID: 4874109497345891070, guid: ddd414c9bea552c4cb4b8f9a4a69819f, type: 3}
-    spawnInterval: 5
+    spawnInterval: 1.618
+    spawnDelay: 0.4
     spawnPoints:
-    - {x: -0.23333333, y: 0.1, z: 4.869}
-    - {x: 0, y: 0.1, z: 4.869}
-    - {x: 0.23333333, y: 0.1, z: 4.869}
+    - {x: -0.23333333, y: 0.1, z: 5.369}
+    - {x: 0, y: 0.1, z: 5.369}
+    - {x: 0.23333333, y: 0.1, z: 5.369}
   spawnedProjectiles: []
   spawnedEnemies: []
 --- !u!1 &1006433137
@@ -825,13 +824,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileParameters:
-    damage: 1
-    moveSpeed: 0.8
+    damage: 0
+    moveSpeed: 0.9
+  projectileDeflectSpeed: 7
   enemyParameters:
     damage: 10
-    moveSpeed: 0.15
-  projectileDeflectSpeed: 2.5
-  enemyMaxHealth: 5
+    moveSpeed: 0.3
+  enemyMaxHealth: 8
+  enemyProjectileDropCount: 4
+  enemyProjectileDropRadius: 0.2
   townMaxHealth: 100
 --- !u!4 &1006433139
 Transform:

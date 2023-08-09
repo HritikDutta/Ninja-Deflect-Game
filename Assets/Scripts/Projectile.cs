@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour, IDamageDealer
 
     private Transform mainCameraTransform;
 
-    private void Start()
+    private void Awake()
     {
         mainCameraTransform = Camera.main.transform;
     }
@@ -37,6 +37,9 @@ public class Projectile : MonoBehaviour, IDamageDealer
 
     private void OnDestroy()
     {
+        if (!Application.isPlaying)
+            return;
+
         Spawner.instance.DespawnProjectile(gameObject);
     }
 

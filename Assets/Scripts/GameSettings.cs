@@ -23,11 +23,16 @@ public class GameSettings : MonoBehaviour
         instance = this;
     }
 
+    [Header("Projectile Settings")]
     public BehaviourParameters projectileParameters;
-    public BehaviourParameters enemyParameters;
-
     public float projectileDeflectSpeed = 1.2f;
 
+    [Header("Enemy Settings")]
+    public BehaviourParameters enemyParameters;
     public int enemyMaxHealth = 5;
+    public int enemyProjectileDropCount = 4;
+    public float enemyProjectileDropRadius = 0.2f;
+
+    [Header("Town Settings")]
     public float townMaxHealth = 100;
 }

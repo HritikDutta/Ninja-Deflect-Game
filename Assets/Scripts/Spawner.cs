@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
         public int rowCount;
         public GameObject prefab;
         public float spawnInterval;
+        public float spawnDelay;
         public Vector3[] spawnPoints;
     }
 
@@ -44,6 +45,8 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnProjectiles()
     {
+        yield return new WaitForSeconds(projectileSpawnParameters.spawnDelay);
+
         while (true)
         {
             GameObject go = Instantiate(projectileSpawnParameters.prefab, GetRandomSpawnPoint(projectileSpawnParameters.spawnPoints), Quaternion.identity);
@@ -55,8 +58,25 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void SpawnOnDeathProjectiles(Vector3 position)
+    {
+        float angleSegment = Mathf.PI / (GameSettings.instance.enemyProjectileDropCount - 1);
+
+        for (int i = 0; i < GameSettings.instance.enemyProjectileDropCount; i++)
+        {
+            Vector3 spawnPosition = position;
+            spawnPosition.x += GameSettings.instance.enemyProjectileDropRadius * Mathf.Cos(angleSegment * i);
+            spawnPosition.z += GameSettings.instance.enemyProjectileDropRadius * Mathf.Sin(angleSegment * i);
+
+            GameObject go = Instantiate(projectileSpawnParameters.prefab, spawnPosition, Quaternion.identity);
+            spawnedProjectiles.Add(go);
+        }
+    }
+
     IEnumerator SpawnEnemies()
     {
+        yield return new WaitForSeconds(enemySpawnParameters.spawnDelay);
+
         while (true)
         {
             GameObject go = Instantiate(enemySpawnParameters.prefab, GetRandomSpawnPoint(enemySpawnParameters.spawnPoints), Quaternion.identity);
@@ -128,7 +148,7 @@ public class Spawner : MonoBehaviour
     void SetupSpawnPoints()
     {
         {   // Projectiles
-            float offset = transform.localScale.x / projectileSpawnParameters.rowCount;
+            float offset = transform.localScale.x / (projectileSpawnParameters.rowCount - 1);
             Vector3 point = transform.position;
             point.x -= offset * (projectileSpawnParameters.rowCount / 2);
 
@@ -141,9 +161,10 @@ public class Spawner : MonoBehaviour
         }
 
         {   // Enemies
-            float offset = transform.localScale.x / enemySpawnParameters.rowCount;
+            float offset = transform.localScale.x / (enemySpawnParameters.rowCount - 1);
             Vector3 point = transform.position;
             point.x -= offset * (enemySpawnParameters.rowCount / 2);
+            point.z += .5f;
 
             enemySpawnParameters.spawnPoints = new Vector3[enemySpawnParameters.rowCount];
             for (int i = 0; i < enemySpawnParameters.rowCount; i++)

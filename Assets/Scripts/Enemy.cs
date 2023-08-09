@@ -44,8 +44,16 @@ public class Enemy : MonoBehaviour, IDamageDealer
         Projectile projectile = collision.gameObject.GetComponent<Projectile>();
 
         // Only take damage from unquie and deflected projectiles
-        if (!projectile.deflected || hitProjectiles.Contains(projectile))
+        //if (!projectile.deflected || hitProjectiles.Contains(projectile))
+        //    return;
+
+        if (!projectile.deflected)
+        {
+            if (!hitProjectiles.Contains(projectile))
+                Destroy(collision.gameObject);
+
             return;
+        }
 
         deflectedProjectiles.Remove(projectile);
         hitProjectiles.Add(projectile);
@@ -60,7 +68,11 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     private void OnDestroy()
     {
+        if (!Application.isPlaying)
+            return;
+
         Spawner.instance.DespawnEnemy(gameObject);
+        Spawner.instance.SpawnOnDeathProjectiles(transform.position);
     }
 
     public float Damage => GameSettings.instance.enemyParameters.damage;
