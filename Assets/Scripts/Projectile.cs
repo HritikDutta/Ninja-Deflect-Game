@@ -7,32 +7,25 @@ public class Projectile : MonoBehaviour, IDamageDealer
     [HideInInspector] public Vector3 moveDirection;
     public bool deflected = false;
 
-    private Transform mainCameraTransform;
-
-    private void Awake()
-    {
-        mainCameraTransform = Camera.main.transform;
-    }
-
-    public void StartMoving()
-    {
-        moveDirection = Vector3.back;
-        deflected = false;
-    }
-
     public void Deflect(Vector3 direction)
     {
         moveDirection = direction;
         deflected = true;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         float speed = deflected ? GameSettings.instance.projectileDeflectSpeed : GameSettings.instance.projectileParameters.moveSpeed;
         transform.position += speed * Time.deltaTime * moveDirection;
 
         if (TooFarFromCamera())
             Despawn();
+    }
+
+    public void Spawn()
+    {
+        moveDirection = Vector3.back;
+        deflected = false;
     }
 
     public void Despawn()
@@ -43,7 +36,7 @@ public class Projectile : MonoBehaviour, IDamageDealer
 
     private bool TooFarFromCamera()
     {
-        Vector3 difference = transform.position - mainCameraTransform.position;
+        Vector3 difference = transform.position - InputController.CameraTransform.position;
         difference.y = 0f;
         return difference.sqrMagnitude > despawnRadius * despawnRadius;
     }

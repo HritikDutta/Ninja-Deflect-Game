@@ -50,8 +50,7 @@ public class Spawner : MonoBehaviour
         while (true)
         {
             GameObject go = Instantiate(projectileSpawnParameters.prefab, GetRandomSpawnPoint(projectileSpawnParameters.spawnPoints), Quaternion.identity);
-            Projectile projectile = go.AddComponent<Projectile>();
-            projectile.StartMoving();
+            go.GetComponent<Projectile>().Spawn();
 
             spawnedProjectiles.Add(go);
             yield return new WaitForSeconds(projectileSpawnParameters.spawnInterval);
@@ -64,11 +63,30 @@ public class Spawner : MonoBehaviour
 
         while (true)
         {
+            if (spawnedEnemies.Count >= 2)
+            {
+                yield return new WaitForSeconds(1f);
+                continue;
+            }
+
             GameObject go = Instantiate(enemySpawnParameters.prefab, GetRandomSpawnPoint(enemySpawnParameters.spawnPoints), Quaternion.identity);
-            Enemy enemy = go.AddComponent<Enemy>();
+            go.GetComponent<Enemy>().Spawn();
 
             spawnedEnemies.Add(go);
             yield return new WaitForSeconds(enemySpawnParameters.spawnInterval);
+        }
+    }
+
+    public void SpawnProjectilesAroundPosition(Vector3 position)
+    {
+        for (int i = 0; i < GameSettings.instance.enemyProjectileDropCount; i++)
+        {
+            Vector3 spawnPosition = position;
+            spawnPosition.z += GameSettings.instance.enemyProjectileDropGap * i;
+
+            GameObject go = Instantiate(projectileSpawnParameters.prefab, spawnPosition, Quaternion.identity);
+            go.GetComponent<Projectile>().Spawn();
+            spawnedProjectiles.Add(go);
         }
     }
 

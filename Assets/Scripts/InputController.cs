@@ -33,6 +33,8 @@ public class InputController : MonoBehaviour
 
         joystickParent.SetActive(false);
         UpdateJoystickBackgroundSize();
+
+        CameraTransform = Camera.main.transform;
     }
 
     void Update()
@@ -124,6 +126,8 @@ public class InputController : MonoBehaviour
 
     public static Vector2 JoystickInput { get; private set; }
     public static Vector2 JoystickInputRaw { get; private set; }
+
+    public static Transform CameraTransform { get; private set; }
 
     public static void SetEnabled(bool value)
     {

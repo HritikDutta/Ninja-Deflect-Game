@@ -13,14 +13,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     HashSet<Projectile> hitProjectiles = new HashSet<Projectile>();
 
-    private void Awake()
-    {
-        health = GameSettings.instance.enemyMaxHealth;
-
-        healthText = GetComponentInChildren<TextMeshPro>();
-        healthText.text = health.ToString();
-    }
-
     private void Update()
     {
         transform.position += GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back;
@@ -63,9 +55,19 @@ public class Enemy : MonoBehaviour, IDamageDealer
         if (health <= 0)
             Despawn();
     }
+    public void Spawn()
+    {
+        health = GameSettings.instance.enemyMaxHealth;
+
+        healthText = GetComponentInChildren<TextMeshPro>();
+        healthText.text = health.ToString();
+    }
 
     public void Despawn()
     {
+        if (Random.Range(0f, 1f) <= GameSettings.instance.enemyProjectileDropChance)
+            Spawner.instance.SpawnProjectilesAroundPosition(transform.position);
+
         Spawner.instance.DespawnEnemy(gameObject);
         Destroy(gameObject);
     }
