@@ -7,10 +7,20 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 startPosition;
 
+    private Animator animator;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
+
+        animator = GetComponentInChildren<Animator>();
+    }
+
+    private void Update()
+    {
+        animator.SetFloat("MoveX", InputController.JoystickInput.x);
+        animator.SetFloat("MoveZ", InputController.JoystickInput.y);
     }
 
     void FixedUpdate()
