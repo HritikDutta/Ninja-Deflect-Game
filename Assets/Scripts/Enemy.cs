@@ -50,29 +50,25 @@ public class Enemy : MonoBehaviour, IDamageDealer
         if (!projectile.deflected)
         {
             if (!hitProjectiles.Contains(projectile))
-                Destroy(collision.gameObject);
+                projectile.Despawn();
 
             return;
         }
 
         deflectedProjectiles.Remove(projectile);
         hitProjectiles.Add(projectile);
-        //Destroy(collision.gameObject);
 
         health--;
         healthText.text = health.ToString();
 
         if (health <= 0)
-            Destroy(gameObject);
+            Despawn();
     }
 
-    private void OnDestroy()
+    public void Despawn()
     {
-        if (health > 0)
-            return;
-
         Spawner.instance.DespawnEnemy(gameObject);
-        Spawner.instance.SpawnOnDeathProjectiles(transform.position);
+        Destroy(gameObject);
     }
 
     public float Damage => GameSettings.instance.enemyParameters.damage;

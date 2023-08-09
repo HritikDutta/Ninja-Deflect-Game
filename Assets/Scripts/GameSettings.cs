@@ -30,8 +30,6 @@ public class GameSettings : MonoBehaviour
     [Header("Enemy Settings")]
     public BehaviourParameters enemyParameters;
     public int enemyMaxHealth = 5;
-    public int enemyProjectileDropCount = 4;
-    public float enemyProjectileDropRadius = 0.2f;
 
     [Header("Town Settings")]
     public float townMaxHealth = 100;

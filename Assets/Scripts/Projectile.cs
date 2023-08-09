@@ -32,15 +32,13 @@ public class Projectile : MonoBehaviour, IDamageDealer
         transform.position += speed * Time.deltaTime * moveDirection;
 
         if (TooFarFromCamera())
-            Destroy(gameObject);
+            Despawn();
     }
 
-    private void OnDestroy()
+    public void Despawn()
     {
-        if (!Application.isPlaying)
-            return;
-
         Spawner.instance.DespawnProjectile(gameObject);
+        Destroy(gameObject);
     }
 
     private bool TooFarFromCamera()

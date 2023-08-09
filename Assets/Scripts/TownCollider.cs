@@ -21,7 +21,7 @@ public class TownCollider : MonoBehaviour
         health -= dealer.Damage;
         UIController.instance.townHealthUISlider.value = health / GameSettings.instance.townMaxHealth;
 
-        Destroy(other.gameObject);
+        dealer.Despawn();
 
         if (health <= 0f)
         {

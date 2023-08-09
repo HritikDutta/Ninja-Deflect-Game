@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641407, b: 0.5748155, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402406, g: 0.49316776, b: 0.57223225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -790,9 +790,9 @@ MonoBehaviour:
     spawnInterval: 1.618
     spawnDelay: 0.4
     spawnPoints:
-    - {x: -0.25, y: 0.1, z: 5.369}
-    - {x: 0, y: 0.1, z: 5.369}
-    - {x: 0.25, y: 0.1, z: 5.369}
+    - {x: -0.25, y: 0.1, z: 4.869}
+    - {x: 0, y: 0.1, z: 4.869}
+    - {x: 0.25, y: 0.1, z: 4.869}
   spawnedProjectiles: []
   spawnedEnemies: []
 --- !u!1 &1006433137
@@ -825,15 +825,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileParameters:
-    damage: 0
+    damage: 2
     moveSpeed: 0.9
   projectileDeflectSpeed: 7
   enemyParameters:
-    damage: 10
+    damage: 20
     moveSpeed: 0.3
-  enemyMaxHealth: 8
-  enemyProjectileDropCount: 4
-  enemyProjectileDropRadius: 0.2
+  enemyMaxHealth: 7
   townMaxHealth: 100
 --- !u!4 &1006433139
 Transform:
