@@ -69,6 +69,8 @@ public class Spawner : MonoBehaviour
             spawnPosition.z += GameSettings.instance.enemyProjectileDropRadius * Mathf.Sin(angleSegment * i);
 
             GameObject go = Instantiate(projectileSpawnParameters.prefab, spawnPosition, Quaternion.identity);
+            Projectile projectile = go.AddComponent<Projectile>();
+            projectile.StartMoving();
             spawnedProjectiles.Add(go);
         }
     }
