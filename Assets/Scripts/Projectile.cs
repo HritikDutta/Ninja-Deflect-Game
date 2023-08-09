@@ -18,8 +18,10 @@ public class Projectile : MonoBehaviour, IDamageDealer
         float speed = deflected ? GameSettings.instance.projectileDeflectSpeed : GameSettings.instance.projectileParameters.moveSpeed;
         transform.position += speed * Time.deltaTime * moveDirection;
 
+        transform.Rotate(Vector3.up * 3f * speed);
+
         if (TooFarFromCamera())
-            Despawn();
+            Despawn(false);
     }
 
     public void Spawn()
@@ -28,7 +30,7 @@ public class Projectile : MonoBehaviour, IDamageDealer
         deflected = false;
     }
 
-    public void Despawn()
+    public void Despawn(bool isDeath)
     {
         Spawner.instance.DespawnProjectile(gameObject);
         Destroy(gameObject);

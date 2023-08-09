@@ -1048,7 +1048,7 @@ MonoBehaviour:
   projectileSpawnParameters:
     rowCount: 7
     prefab: {fileID: 2835885199518986601, guid: b8b4d016e5636104e82a7059a27b9bee, type: 3}
-    spawnInterval: 0.3
+    spawnInterval: 0.5
     spawnDelay: 0
     spawnPoints:
     - {x: -0.25, y: 0.1, z: 4.869}
@@ -1143,7 +1143,7 @@ MonoBehaviour:
   enemyParameters:
     damage: 20
     moveSpeed: 0.3
-  enemyMaxHealth: 6
+  enemyMaxHealth: 5
   enemyProjectileDropCount: 3
   enemyProjectileDropGap: 0.2
   enemyProjectileDropChance: 1

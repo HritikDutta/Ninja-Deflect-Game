@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,12 +10,18 @@ public class Enemy : MonoBehaviour, IDamageDealer
     private List<Projectile> deflectedProjectiles = new List<Projectile>();
 
     private TextMeshPro healthText;
+    private Animator animator;
+    private Collider myCollider;
     private int health;
 
     HashSet<Projectile> hitProjectiles = new HashSet<Projectile>();
+    private bool despawned = false;
 
     private void Update()
     {
+        if (despawned)
+            return;
+
         transform.position += GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back;
 
         foreach (Projectile projectile in deflectedProjectiles)
@@ -30,6 +37,9 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     private void OnCollisionStay(Collision collision)
     {
+        if (despawned)
+            return;
+
         if (((1 << collision.gameObject.layer) & projectileLayerMask) == 0)
             return;
 
@@ -38,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
         // Only take damage from deflected projectiles
         if (!projectile.deflected)
         {
-            projectile.Despawn();
+            projectile.Despawn(false);
             return;
         }
 
@@ -53,22 +63,48 @@ public class Enemy : MonoBehaviour, IDamageDealer
         healthText.text = health.ToString();
 
         if (health <= 0)
-            Despawn();
+            Despawn(true);
     }
+
     public void Spawn()
     {
         health = GameSettings.instance.enemyMaxHealth;
 
         healthText = GetComponentInChildren<TextMeshPro>();
         healthText.text = health.ToString();
+
+        animator = GetComponentInChildren<Animator>();
+        myCollider = GetComponent<Collider>();
+
+        despawned = false;
     }
 
-    public void Despawn()
+    public void Despawn(bool isDeath)
     {
-        if (Random.Range(0f, 1f) <= GameSettings.instance.enemyProjectileDropChance)
+        Spawner.instance.DespawnEnemy(gameObject);
+        despawned = true;
+
+        if (isDeath)
+            health = 0;
+
+        StartCoroutine(DeathCoroutine());
+    }
+
+    IEnumerator DeathCoroutine()
+    {
+        healthText.gameObject.SetActive(false);
+
+        if (health <= 0)
+            animator.SetTrigger("Death");
+        else
+            animator.SetTrigger("Attack");  // Enemy has probably reached the town
+
+        myCollider.enabled = false;
+
+        if (health <= 0 && Random.Range(0f, 1f) <= GameSettings.instance.enemyProjectileDropChance)
             Spawner.instance.SpawnProjectilesAroundPosition(transform.position);
 
-        Spawner.instance.DespawnEnemy(gameObject);
+        yield return new WaitForSeconds(3f);
         Destroy(gameObject);
     }
 
