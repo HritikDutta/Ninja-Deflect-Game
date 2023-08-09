@@ -43,17 +43,16 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
         Projectile projectile = collision.gameObject.GetComponent<Projectile>();
 
-        // Only take damage from unquie and deflected projectiles
-        //if (!projectile.deflected || hitProjectiles.Contains(projectile))
-        //    return;
-
+        // Only take damage from deflected projectiles
         if (!projectile.deflected)
         {
-            if (!hitProjectiles.Contains(projectile))
-                projectile.Despawn();
-
+            projectile.Despawn();
             return;
         }
+
+        // Don't take damage from the same projectile more than once!
+        if (hitProjectiles.Contains(projectile))
+            return;
 
         deflectedProjectiles.Remove(projectile);
         hitProjectiles.Add(projectile);

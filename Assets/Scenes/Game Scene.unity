@@ -774,20 +774,21 @@ MonoBehaviour:
   projectileSpawnParameters:
     rowCount: 7
     prefab: {fileID: 2835885199518986601, guid: b8b4d016e5636104e82a7059a27b9bee, type: 3}
-    spawnInterval: 0.26966667
+    spawnInterval: 0.3
     spawnDelay: 0
     spawnPoints:
-    - {x: -0.25, y: 0.1, z: 4.869}
-    - {x: -0.16666666, y: 0.1, z: 4.869}
-    - {x: -0.08333332, y: 0.1, z: 4.869}
-    - {x: 0.000000014901161, y: 0.1, z: 4.869}
-    - {x: 0.08333335, y: 0.1, z: 4.869}
-    - {x: 0.16666669, y: 0.1, z: 4.869}
-    - {x: 0.25000003, y: 0.1, z: 4.869}
+    - {x: -0.2857143, y: 0.1, z: 4.869}
+    - {x: -0.21428573, y: 0.1, z: 4.869}
+    - {x: -0.14285716, y: 0.1, z: 4.869}
+    - {x: -0.07142859, y: 0.1, z: 4.869}
+    - {x: -0.000000014901161, y: 0.1, z: 4.869}
+    - {x: 0.07142856, y: 0.1, z: 4.869}
+    - {x: 0.14285713, y: 0.1, z: 4.869}
+    - {x: 0.2142857, y: 0.1, z: 4.869}
   enemySpawnParameters:
     rowCount: 3
     prefab: {fileID: 4874109497345891070, guid: ddd414c9bea552c4cb4b8f9a4a69819f, type: 3}
-    spawnInterval: 1.618
+    spawnInterval: 2.4
     spawnDelay: 0.4
     spawnPoints:
     - {x: -0.25, y: 0.1, z: 4.869}
@@ -826,12 +827,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileParameters:
     damage: 2
-    moveSpeed: 0.9
-  projectileDeflectSpeed: 7
+    moveSpeed: 1.2
+  projectileDeflectSpeed: 5
   enemyParameters:
     damage: 20
     moveSpeed: 0.3
-  enemyMaxHealth: 7
+  enemyMaxHealth: 4
   townMaxHealth: 100
 --- !u!4 &1006433139
 Transform:
@@ -969,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usePCControls: 1
-  joystickMaxRadius: 150
+  joystickMaxRadius: 200
   joystickActivationCurve:
     serializedVersion: 2
     m_Curve:
@@ -986,17 +987,17 @@ MonoBehaviour:
       time: 0.025
       value: 0
       inSlope: Infinity
-      outSlope: -0.011551791
-      tangentMode: 7
+      outSlope: 2.1052632
+      tangentMode: 71
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.81666666
     - serializedVersion: 3
-      time: 0.18
+      time: 0.5
       value: 1
-      inSlope: -0
+      inSlope: 2.1052632
       outSlope: Infinity
-      tangentMode: 97
+      tangentMode: 101
       weightedMode: 0
       inWeight: 0.6333334
       outWeight: 0.33333334
