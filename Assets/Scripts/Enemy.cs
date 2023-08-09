@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     private void OnDestroy()
     {
-        if (!Application.isPlaying)
+        if (health > 0)
             return;
 
         Spawner.instance.DespawnEnemy(gameObject);
