@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class PlayerDeflect : MonoBehaviour
 {
-    [SerializeField] private LayerMask projectileLayerMask;
+    [SerializeField]
+    private LayerMask projectileLayerMask;
+
+    [SerializeField]
+    private ParticleSystem deflectEffect;
 
     private Animator animator;
 
@@ -21,6 +25,7 @@ public class PlayerDeflect : MonoBehaviour
             return;
 
         animator.SetTrigger("Deflect");
+        deflectEffect.Play();
 
         if (Spawner.instance.spawnedEnemies.Count > 0)
         {

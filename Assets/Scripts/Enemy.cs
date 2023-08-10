@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageDealer
 {
     [SerializeField] private LayerMask projectileLayerMask;
+    [SerializeField] private ParticleSystem damageParticleEffect;
 
     private List<Projectile> deflectedProjectiles = new List<Projectile>();
 
@@ -62,6 +63,8 @@ public class Enemy : MonoBehaviour, IDamageDealer
         health--;
         healthText.text = health.ToString();
 
+        damageParticleEffect.Play();
+
         if (health <= 0)
             Despawn(true);
     }
@@ -81,7 +84,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     public void Despawn(bool isDeath)
     {
-        Spawner.instance.DespawnEnemy(gameObject);
         despawned = true;
 
         if (isDeath)
@@ -106,6 +108,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
         yield return new WaitForSeconds(3f);
 
+        Spawner.instance.DespawnEnemy(gameObject);
         Spawner.instance.SpawnPickUp(transform.position);
         Destroy(gameObject);
     }

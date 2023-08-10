@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +14,8 @@ public class UIController : MonoBehaviour
     public Button annihilateButton;
     public Button healButton;
 
-    private TextMeshProUGUI annihilateButtonText;
-    private TextMeshProUGUI healButtonText;
+    [SerializeField] private TextMeshProUGUI annihilateButtonText;
+    [SerializeField] private TextMeshProUGUI healButtonText;
 
     private void Awake()
     {
@@ -29,12 +28,12 @@ public class UIController : MonoBehaviour
         
         instance = this;
 
+    }
+
+    private void Start()
+    {
         // Make sure this is off :P
         gameOverScreen.SetActive(false);
-
-        annihilateButtonText = annihilateButton.GetComponentInChildren<TextMeshProUGUI>();
-        healButtonText = healButton.GetComponentInChildren<TextMeshProUGUI>();
-
         UpdateCostOnButtons();
     }
 

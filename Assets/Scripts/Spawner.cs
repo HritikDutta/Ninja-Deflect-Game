@@ -22,6 +22,7 @@ public class Spawner : MonoBehaviour
 
     [HideInInspector] public List<GameObject> spawnedProjectiles = new List<GameObject>();
     [HideInInspector] public List<GameObject> spawnedEnemies = new List<GameObject>();
+    [HideInInspector] public List<GameObject> spawnedPickups = new List<GameObject>();
 
     private Coroutine projectileSpawnerCoroutine;
     private Coroutine enemySpawnerCoroutine;
@@ -96,6 +97,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject go = Instantiate(pickUpPrefab, position, Quaternion.identity);
         go.GetComponent<PickUp>().Spawn();
+        spawnedPickups.Add(go);
     }
 
     private Vector3 GetRandomSpawnPoint(Vector3[] spawnPoints)
@@ -133,6 +135,19 @@ public class Spawner : MonoBehaviour
     public void DespawnProjectile(GameObject projectile)
     {
         spawnedProjectiles.Remove(projectile);
+    }
+    
+    public void DespawnPickups(GameObject pickup)
+    {
+        spawnedPickups.Remove(pickup);
+    }
+
+    public void ResetPickups()
+    {
+        foreach (GameObject pickup in spawnedPickups)
+            Destroy(pickup);
+
+        spawnedPickups.Clear();
     }
 
     public void ResetSpawning()
