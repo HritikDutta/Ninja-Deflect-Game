@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106be4597b986ec469a3169beb497dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnRadius: 5
+  despawnRadius: 100
   visualTransform: {fileID: 5999898707036259575}
   moveDirection: {x: 0, y: 0, z: 0}
   deflected: 0
