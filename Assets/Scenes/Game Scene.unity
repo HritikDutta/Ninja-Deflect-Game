@@ -2027,6 +2027,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569357727}
   m_CullTransparentMesh: 1
+--- !u!1 &1600986810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1600986811}
+  m_Layer: 0
+  m_Name: Feeeeel Stuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1600986811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600986810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1647755074 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2372677783329387147, guid: 43be09bc52bfd7c44b48af104e7d7b63, type: 3}
@@ -2117,6 +2148,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e6117e845e0decd4e940741e207b4f66, type: 3}
     volume: 1
     randomizePitch: 0
+  ogreAttack:
+    clip: {fileID: 8300000, guid: 37786fb2f97ced247a9484f69f78f593, type: 3}
+    volume: 0.5
+    randomizePitch: 1
+  ogreDeath:
+    clip: {fileID: 8300000, guid: 8562af04b3613ac4692aebb1a870560f, type: 3}
+    volume: 0.7
+    randomizePitch: 1
 --- !u!4 &1744488332
 Transform:
   m_ObjectHideFlags: 0

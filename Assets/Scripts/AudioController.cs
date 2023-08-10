@@ -16,6 +16,8 @@ public class AudioController : MonoBehaviour
     public GameAudioClip knifeStabClip;
     public GameAudioClip swordHitClip;
     public GameAudioClip coinCollectClip;
+    public GameAudioClip ogreAttack;
+    public GameAudioClip ogreDeath;
 
     private AudioSource audioSource;
 

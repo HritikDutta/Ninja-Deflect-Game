@@ -99,16 +99,22 @@ public class Enemy : MonoBehaviour, IDamageDealer
         healthText.gameObject.SetActive(false);
 
         if (health <= 0)
+        {
             animator.SetTrigger("Death");
+            AudioController.PlayAudioClipOneShot(AudioController.instance.ogreDeath);
+        }
         else
+        {
             animator.SetTrigger("Attack");  // Enemy has probably reached the town
+            AudioController.PlayAudioClipOneShot(AudioController.instance.ogreAttack);
+        }
 
         myCollider.enabled = false;
 
         if (health <= 0 && Random.Range(0f, 1f) <= GameSettings.instance.enemyProjectileDropChance)
             Spawner.instance.SpawnProjectilesAroundPosition(transform.position);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
         Spawner.instance.SpawnPickUp(transform.position);
         Destroy(gameObject);
