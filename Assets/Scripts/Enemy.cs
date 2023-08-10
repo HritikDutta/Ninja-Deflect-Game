@@ -105,6 +105,8 @@ public class Enemy : MonoBehaviour, IDamageDealer
             Spawner.instance.SpawnProjectilesAroundPosition(transform.position);
 
         yield return new WaitForSeconds(3f);
+
+        Spawner.instance.SpawnPickUp(transform.position);
         Destroy(gameObject);
     }
 

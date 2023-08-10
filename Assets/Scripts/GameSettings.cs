@@ -39,8 +39,17 @@ public class GameSettings : MonoBehaviour
     [Header("Town Settings")]
     public float townMaxHealth = 100;
 
+    [Header("Pick Up Settings")]
+    public float pickUpDuration = 2f;
+
     [Header("Power Up Settings")]
     public float powerUpExpandSpeed = 2f;
     public float powerUpMaxRadius = 4f;
     public float powerUpHealAmount = 20f;
+
+    public int annihilateCost = 20;
+    public int healCost = 10;
+
+    [Header("Difficulty Settings")]
+    public int maxEnemiesOnScreen = 2;
 }

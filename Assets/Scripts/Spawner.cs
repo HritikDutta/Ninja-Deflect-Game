@@ -18,9 +18,10 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] private SpawnObjectParameters projectileSpawnParameters;
     [SerializeField] private SpawnObjectParameters enemySpawnParameters;
+    [SerializeField] private GameObject pickUpPrefab;
 
-    public List<GameObject> spawnedProjectiles = new List<GameObject>();
-    public List<GameObject> spawnedEnemies = new List<GameObject>();
+    [HideInInspector] public List<GameObject> spawnedProjectiles = new List<GameObject>();
+    [HideInInspector] public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private Coroutine projectileSpawnerCoroutine;
     private Coroutine enemySpawnerCoroutine;
@@ -63,7 +64,8 @@ public class Spawner : MonoBehaviour
 
         while (true)
         {
-            if (spawnedEnemies.Count >= 2)
+            // Hard limit so phone screen doesn't get crowded with enemies
+            if (spawnedEnemies.Count >= GameSettings.instance.maxEnemiesOnScreen)
             {
                 yield return new WaitForSeconds(1f);
                 continue;
@@ -88,6 +90,12 @@ public class Spawner : MonoBehaviour
             go.GetComponent<Projectile>().Spawn();
             spawnedProjectiles.Add(go);
         }
+    }
+
+    public void SpawnPickUp(Vector3 position)
+    {
+        GameObject go = Instantiate(pickUpPrefab, position, Quaternion.identity);
+        go.GetComponent<PickUp>().Spawn();
     }
 
     private Vector3 GetRandomSpawnPoint(Vector3[] spawnPoints)
@@ -164,7 +172,7 @@ public class Spawner : MonoBehaviour
         }
 
         {   // Enemies
-            float offset = transform.localScale.x / (enemySpawnParameters.rowCount - 1);
+            float offset = enemySpawnParameters.rowCount > 1 ? transform.localScale.x / (enemySpawnParameters.rowCount - 1) : 0f;
             Vector3 point = transform.position;
             point.x -= offset * (enemySpawnParameters.rowCount / 2);
             //point.z += .5f;

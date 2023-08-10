@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour, IDamageDealer
         float speed = deflected ? GameSettings.instance.projectileDeflectSpeed : GameSettings.instance.projectileParameters.moveSpeed;
         transform.position += speed * Time.deltaTime * moveDirection;
 
-        transform.Rotate(Vector3.up * 3f * speed);
+        transform.Rotate(0f, 400f * speed * Time.deltaTime, 0f);
 
         if (TooFarFromCamera())
             Despawn(false);
