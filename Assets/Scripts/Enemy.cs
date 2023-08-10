@@ -25,10 +25,12 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
         transform.position += GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back;
 
-        //foreach (Projectile projectile in deflectedProjectiles)
-        //{
-        //    projectile.moveDirection = (transform.position - projectile.transform.position).normalized;
-        //}
+        foreach (Projectile projectile in deflectedProjectiles)
+        {
+            float distance = (transform.position - projectile.transform.position).magnitude;
+            if (distance >= 0.1f)
+                projectile.moveDirection = (transform.position - projectile.transform.position) / distance;
+        }
     }
 
     public void AddDeflectedProjectile(Projectile projectile)
