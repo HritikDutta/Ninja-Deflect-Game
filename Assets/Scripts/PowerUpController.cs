@@ -32,14 +32,14 @@ public class PowerUpController : MonoBehaviour
     public void ActivateAnnihilate()
     {
         StartCoroutine(ExpandAnnihilate());
-        coinCount -= GameSettings.instance.annihilateCost;
+        Coins -= GameSettings.instance.annihilateCost;
         UpdateButtons();
     }
 
     public void HealTown()
     {
         town.AddHealth(GameSettings.instance.powerUpHealAmount);
-        coinCount -= GameSettings.instance.annihilateCost;
+        Coins -= GameSettings.instance.annihilateCost;
         UpdateButtons();
     }
 
@@ -70,8 +70,7 @@ public class PowerUpController : MonoBehaviour
 
     public void ResetCoins()
     {
-        coinCount = 0;
-        UIController.instance.coinCountText.text = $"Coins: {coinCount}";
+        Coins = 0;
 
         UIController.instance.annihilateButton.interactable = false;
         UIController.instance.healButton.interactable = false;
@@ -79,9 +78,17 @@ public class PowerUpController : MonoBehaviour
 
     public void AddCoins(int amount)
     {
-        coinCount += amount;
-        UIController.instance.coinCountText.text = $"Coins: {coinCount}";
+        Coins += amount;
         UpdateButtons();
+    }
+
+    private int Coins
+    {
+        get { return coinCount; }
+        set {
+            coinCount = value;
+            UIController.instance.coinCountText.text = $"Coins: {coinCount}";
+        }
     }
 
     private void UpdateButtons()
