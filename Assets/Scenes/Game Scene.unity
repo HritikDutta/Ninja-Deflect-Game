@@ -1052,7 +1052,7 @@ MonoBehaviour:
   projectileSpawnParameters:
     rowCount: 7
     prefab: {fileID: 2835885199518986601, guid: b8b4d016e5636104e82a7059a27b9bee, type: 3}
-    spawnInterval: 0.5
+    spawnInterval: 0.4
     spawnDelay: 0
     spawnPoints:
     - {x: -0.25, y: 0.1, z: 4.869}
@@ -1065,7 +1065,7 @@ MonoBehaviour:
   enemySpawnParameters:
     rowCount: 3
     prefab: {fileID: 4874109497345891070, guid: ddd414c9bea552c4cb4b8f9a4a69819f, type: 3}
-    spawnInterval: 2.6
+    spawnInterval: 3
     spawnDelay: 2.6
     spawnPoints:
     - {x: -0.25, y: 0.1, z: 4.869}
@@ -2027,37 +2027,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569357727}
   m_CullTransparentMesh: 1
---- !u!1 &1600986810
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1600986811}
-  m_Layer: 0
-  m_Name: Feeeeel Stuff
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1600986811
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600986810}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1647755074 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2372677783329387147, guid: 43be09bc52bfd7c44b48af104e7d7b63, type: 3}

@@ -1703,7 +1703,7 @@ Transform:
   - {fileID: 5599790140540935076}
   - {fileID: 3539337348911321143}
   m_Father: {fileID: 7819023653320244209}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3539337348921114559
 Animator:
@@ -1992,7 +1992,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7819023653320244209}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7819023652287775758
 BoxCollider:
@@ -2054,8 +2054,8 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7819023652287775757}
   - {fileID: 3539337348911321141}
+  - {fileID: 7819023652287775757}
   - {fileID: 1430612272343027826}
   m_Father: {fileID: 0}
   m_RootOrder: 0

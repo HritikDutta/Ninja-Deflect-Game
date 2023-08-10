@@ -25,10 +25,10 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
         transform.position += GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back;
 
-        foreach (Projectile projectile in deflectedProjectiles)
-        {
-            projectile.moveDirection = (transform.position - projectile.transform.position).normalized;
-        }
+        //foreach (Projectile projectile in deflectedProjectiles)
+        //{
+        //    projectile.moveDirection = (transform.position - projectile.transform.position).normalized;
+        //}
     }
 
     public void AddDeflectedProjectile(Projectile projectile)

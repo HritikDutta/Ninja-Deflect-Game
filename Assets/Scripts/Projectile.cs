@@ -3,6 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour, IDamageDealer
 {
     [SerializeField] private float despawnRadius = 50f;
+    [SerializeField] private Transform visualTransform;
 
     [HideInInspector] public Vector3 moveDirection;
     public bool deflected = false;
@@ -18,7 +19,7 @@ public class Projectile : MonoBehaviour, IDamageDealer
         float speed = deflected ? GameSettings.instance.projectileDeflectSpeed : GameSettings.instance.projectileParameters.moveSpeed;
         transform.position += speed * Time.deltaTime * moveDirection;
 
-        transform.Rotate(0f, 600f * speed * Time.deltaTime, 0f);
+        visualTransform.Rotate(0f, 600f * speed * Time.deltaTime, 0f);
 
         if (TooFarFromCamera())
             Despawn(false);
