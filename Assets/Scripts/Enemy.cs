@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
         healthText.text = health.ToString();
 
         damageParticleEffect.Play();
+        AudioController.PlayAudioClipOneShot(AudioController.instance.knifeStabClip);
 
         if (health <= 0)
             Despawn(true);
@@ -84,6 +85,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     public void Despawn(bool isDeath)
     {
+        Spawner.instance.DespawnEnemy(gameObject);
         despawned = true;
 
         if (isDeath)
@@ -108,7 +110,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
         yield return new WaitForSeconds(3f);
 
-        Spawner.instance.DespawnEnemy(gameObject);
         Spawner.instance.SpawnPickUp(transform.position);
         Destroy(gameObject);
     }

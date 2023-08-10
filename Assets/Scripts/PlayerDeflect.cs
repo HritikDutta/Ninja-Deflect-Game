@@ -27,6 +27,8 @@ public class PlayerDeflect : MonoBehaviour
         animator.SetTrigger("Deflect");
         deflectEffect.Play();
 
+        AudioController.PlayAudioClipOneShot(AudioController.instance.swordHitClip);
+
         if (Spawner.instance.spawnedEnemies.Count > 0)
         {
             Enemy enemy = Spawner.instance.spawnedEnemies[0].GetComponent<Enemy>();

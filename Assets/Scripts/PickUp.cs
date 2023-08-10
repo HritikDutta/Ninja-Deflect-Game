@@ -42,9 +42,10 @@ public class PickUp : MonoBehaviour
             return;
 
         // No need to check layer since it only interacts with the player
-        Debug.Log("Picked Up Coin!");
         coinVisualTransform.gameObject.SetActive(false);
         PowerUpController.instance.AddCoins(1);
+        AudioController.PlayAudioClipOneShot(AudioController.instance.coinCollectClip);
+
         collected = true;
     }
 }
