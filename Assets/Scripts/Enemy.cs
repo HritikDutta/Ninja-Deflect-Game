@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour, IDamageDealer
     [SerializeField] private LayerMask projectileLayerMask;
     [SerializeField] private ParticleSystem damageParticleEffect;
 
+    [SerializeField] private Transform[] bodyPartsToBlowOff;
+
     private List<Projectile> deflectedProjectiles = new List<Projectile>();
 
     private TextMeshPro healthText;
@@ -65,6 +67,9 @@ public class Enemy : MonoBehaviour, IDamageDealer
         health--;
         healthText.text = health.ToString();
 
+        if (health >= 0)
+            DamageBodyParts();
+
         damageParticleEffect.Play();
         AudioController.PlayAudioClipOneShot(AudioController.instance.knifeStabClip);
 
@@ -96,6 +101,16 @@ public class Enemy : MonoBehaviour, IDamageDealer
         StartCoroutine(DeathCoroutine());
     }
 
+    private void DamageBodyParts()
+    {
+#if UNITY_EDITOR
+        if (bodyPartsToBlowOff.Length != GameSettings.instance.enemyMaxHealth)
+            Debug.LogError($"Body part count should be {GameSettings.instance.enemyMaxHealth + 1}! (body part count: {bodyPartsToBlowOff.Length})");
+#endif
+
+        bodyPartsToBlowOff[health].localScale = Vector3.zero;
+    }
+
     IEnumerator DeathCoroutine()
     {
         healthText.gameObject.SetActive(false);
@@ -116,9 +131,9 @@ public class Enemy : MonoBehaviour, IDamageDealer
         if (health <= 0 && Random.Range(0f, 1f) <= GameSettings.instance.enemyProjectileDropChance)
             Spawner.instance.SpawnProjectilesAroundPosition(transform.position);
 
-        yield return new WaitForSeconds(4f);
-
         Spawner.instance.SpawnPickUp(transform.position);
+
+        yield return new WaitForSeconds(4f);
         Destroy(gameObject);
     }
 

@@ -27,7 +27,6 @@ public class UIController : MonoBehaviour
         }
         
         instance = this;
-
     }
 
     private void Start()
