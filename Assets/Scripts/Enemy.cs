@@ -67,9 +67,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
         health--;
         healthText.text = health.ToString();
 
-        if (health >= 0)
-            DamageBodyParts();
-
         damageParticleEffect.Play();
         AudioController.PlayAudioClipOneShot(AudioController.instance.knifeStabClip);
 
@@ -101,16 +98,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
         StartCoroutine(DeathCoroutine());
     }
 
-    private void DamageBodyParts()
-    {
-#if UNITY_EDITOR
-        if (bodyPartsToBlowOff.Length != GameSettings.instance.enemyMaxHealth)
-            Debug.LogError($"Body part count should be {GameSettings.instance.enemyMaxHealth + 1}! (body part count: {bodyPartsToBlowOff.Length})");
-#endif
-
-        bodyPartsToBlowOff[health].localScale = Vector3.zero;
-    }
-
     IEnumerator DeathCoroutine()
     {
         healthText.gameObject.SetActive(false);
@@ -133,7 +120,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
         Spawner.instance.SpawnPickUp(transform.position);
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2.3f);
         Destroy(gameObject);
     }
 
