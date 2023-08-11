@@ -19,7 +19,6 @@ public class InputController : MonoBehaviour
 
     private Vector2 joystickStartPosition;
     private bool inputEnabled = true;
-    private bool joystickInputActive = false;
 
     private void Awake()
     {
@@ -70,10 +69,9 @@ public class InputController : MonoBehaviour
             {
                 joystickStartPosition = mousePosition;
                 joystickParent.SetActive(true);
-                joystickInputActive = true;
             }
 
-            if (joystickInputActive && Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0))
             {
                 Vector2 motion = mousePosition - joystickStartPosition;
 
@@ -84,10 +82,7 @@ public class InputController : MonoBehaviour
             }
 
             if (Input.GetMouseButtonUp(0))
-            {
                 joystickParent.SetActive(false);
-                joystickInputActive = false;
-            }
         }
         else
 #endif
@@ -100,28 +95,24 @@ public class InputController : MonoBehaviour
                     {
                         joystickStartPosition = mousePosition;
                         joystickParent.SetActive(true);
-                        joystickInputActive = true;
                         break;
                     }
 
+                case TouchPhase.Stationary:
                 case TouchPhase.Moved:
                     {
-                        if (joystickInputActive)
-                        {
-                            Vector2 motion = mousePosition - joystickStartPosition;
+                        Vector2 motion = mousePosition - joystickStartPosition;
 
-                            float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
+                        float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
 
-                            JoystickInputRaw = t * motion.normalized;
-                            JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
-                        }
+                        JoystickInputRaw = t * motion.normalized;
+                        JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
                         break;
                     }
 
-                case TouchPhase.Ended:
+                default:
                     {
                         joystickParent.SetActive(false);
-                        joystickInputActive = false;
                         break;
                     }
             }

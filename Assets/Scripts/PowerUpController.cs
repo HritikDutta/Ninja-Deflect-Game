@@ -14,7 +14,7 @@ public class PowerUpController : MonoBehaviour
     [SerializeField]
     private LayerMask eraseLayerMask;
 
-    public int coinCount = 0;
+    private int coinCount = 0;
 
     private void Awake()
     {
@@ -87,7 +87,7 @@ public class PowerUpController : MonoBehaviour
         get { return coinCount; }
         set {
             coinCount = value;
-            UIController.instance.coinCountText.text = $"Coins: {coinCount}";
+            UIController.instance.coinCountText.text = $"{coinCount}";
         }
     }
 
