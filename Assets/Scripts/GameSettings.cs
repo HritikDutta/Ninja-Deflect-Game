@@ -29,7 +29,6 @@ public class GameSettings : MonoBehaviour
 
     [Header("Enemy Settings")]
     public BehaviourParameters enemyParameters;
-    public int enemyMaxHealth = 5;
 
     [Header("Enemy Projectile Drops")]
     public int enemyProjectileDropCount = 3;

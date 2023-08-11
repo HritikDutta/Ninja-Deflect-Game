@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class PlayerDeflect : MonoBehaviour
@@ -7,6 +8,9 @@ public class PlayerDeflect : MonoBehaviour
 
     [SerializeField]
     private ParticleSystem deflectEffect;
+
+    [SerializeField]
+    private MMF_Player feelPackagePlayer;
 
     private Animator animator;
 
@@ -27,7 +31,8 @@ public class PlayerDeflect : MonoBehaviour
         animator.SetTrigger("Deflect");
         deflectEffect.Play();
 
-        AudioController.PlayAudioClipOneShot(AudioController.instance.swordHitClip);
+        //AudioController.PlayAudioClipOneShot(AudioController.instance.swordHitClip);
+        feelPackagePlayer.PlayFeedbacks();
 
         if (Spawner.instance.spawnedEnemies.Count > 0)
         {

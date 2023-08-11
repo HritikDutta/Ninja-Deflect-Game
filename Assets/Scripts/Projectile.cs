@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour, IDamageDealer
         transform.Rotate(0f, 600f * speed * Time.deltaTime, 0f);
 
         if (TooFarFromCamera())
-            Despawn(false);
+            Despawn(null);
     }
 
     public void Spawn()
@@ -31,8 +31,9 @@ public class Projectile : MonoBehaviour, IDamageDealer
         deflected = false;
     }
 
-    public void Despawn(bool isDeath)
+    public void Despawn(TownCollider town)
     {
+        town?.AddOrReduceHealth(-Damage);
         Spawner.instance.DespawnProjectile(gameObject);
         Destroy(gameObject);
     }

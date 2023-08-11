@@ -56,7 +56,7 @@ public class PowerUpController : MonoBehaviour
                 for (int i = 0; i < colliders.Length; i++)
                 {
                     IDamageDealer dealer = colliders[0].GetComponent<IDamageDealer>();
-                    dealer.Despawn(true);
+                    dealer.Despawn(null);
                 }
             }
 

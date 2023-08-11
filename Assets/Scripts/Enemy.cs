@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using WarriorAnims;
 
 public class Enemy : MonoBehaviour, IDamageDealer
 {
     [SerializeField] private LayerMask projectileLayerMask;
     [SerializeField] private ParticleSystem damageParticleEffect;
 
-    [SerializeField] private Transform[] bodyPartsToBlowOff;
+    [SerializeField] private List<EnemyUnit> units = new List<EnemyUnit>();
 
     private List<Projectile> deflectedProjectiles = new List<Projectile>();
-
-    private TextMeshPro healthText;
-    private Animator animator;
     private Collider myCollider;
-    private int health;
 
     HashSet<Projectile> hitProjectiles = new HashSet<Projectile>();
     private bool despawned = false;
@@ -53,7 +50,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
         // Only take damage from deflected projectiles
         if (!projectile.deflected)
         {
-            projectile.Despawn(false);
+            projectile.Despawn(null);
             return;
         }
 
@@ -64,65 +61,70 @@ public class Enemy : MonoBehaviour, IDamageDealer
         deflectedProjectiles.Remove(projectile);
         hitProjectiles.Add(projectile);
 
-        health--;
-        healthText.text = health.ToString();
+        {   // Kill one unit
+            int lastUnitIndex = units.Count - 1;
+            KillUnit(units[lastUnitIndex], true);
+            units.RemoveAt(lastUnitIndex);
+        }
 
-        damageParticleEffect.Play();
-        AudioController.PlayAudioClipOneShot(AudioController.instance.knifeStabClip);
-
-        if (health <= 0)
-            Despawn(true);
+        if (Health <= 0)
+            Despawn(null);
     }
 
     public void Spawn()
     {
-        health = GameSettings.instance.enemyMaxHealth;
-
-        healthText = GetComponentInChildren<TextMeshPro>();
-        healthText.text = health.ToString();
-
-        animator = GetComponentInChildren<Animator>();
         myCollider = GetComponent<Collider>();
-
         despawned = false;
     }
 
-    public void Despawn(bool isDeath)
+    public void Despawn(TownCollider town)
     {
         Spawner.instance.DespawnEnemy(gameObject);
+        myCollider.enabled = false;
         despawned = true;
 
-        if (isDeath)
-            health = 0;
+        if (town != null)
+            StartCoroutine(AttackCoroutine(town));
+        else
+            StartCoroutine(DeathCoroutine());
+    }
 
-        StartCoroutine(DeathCoroutine());
+    IEnumerator AttackCoroutine(TownCollider town)
+    {
+        for (int i = 0; i < units.Count; i++)
+        {
+            units[i].Animator.SetTrigger("Attack");
+            AudioController.PlayAudioClipOneShot(AudioController.instance.ogreAttack);
+        }
+
+        yield return new WaitForSeconds(1.8f);
+        town.AddOrReduceHealth(-Damage);
+        Destroy(gameObject);
     }
 
     IEnumerator DeathCoroutine()
     {
-        healthText.gameObject.SetActive(false);
+        for (int i = 0; i < units.Count; i++)
+            KillUnit(units[i], false);
 
-        if (health <= 0)
-        {
-            animator.SetTrigger("Death");
-            AudioController.PlayAudioClipOneShot(AudioController.instance.ogreDeath);
-        }
-        else
-        {
-            animator.SetTrigger("Attack");  // Enemy has probably reached the town
-            AudioController.PlayAudioClipOneShot(AudioController.instance.ogreAttack);
-        }
-
-        myCollider.enabled = false;
-
-        if (health <= 0 && Random.Range(0f, 1f) <= GameSettings.instance.enemyProjectileDropChance)
-            Spawner.instance.SpawnExtraProjectiles(transform.position);
-
+        Spawner.instance.SpawnExtraProjectiles(transform.position);
         Spawner.instance.SpawnPickUp(transform.position);
 
-        yield return new WaitForSeconds(2.3f);
+        yield return new WaitForSeconds(1.8f);
         Destroy(gameObject);
     }
 
-    public float Damage => GameSettings.instance.enemyParameters.damage;
+    void KillUnit(EnemyUnit unit, bool destroy)
+    {
+        unit.Animator.SetTrigger("Death");
+        damageParticleEffect.Play();
+        AudioController.PlayAudioClipOneShot(AudioController.instance.knifeStabClip);
+
+        if (destroy)
+            unit.SetToDestroy(2.3f);
+    }
+
+    public float Damage => Health * GameSettings.instance.enemyParameters.damage;
+
+    private int Health => units.Count;
 }
