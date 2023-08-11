@@ -66,7 +66,7 @@ public class InputController : MonoBehaviour
 #if UNITY_EDITOR
         if (usePCControls)
         {
-            if (Input.GetMouseButtonDown(0) && IsPositionInJoystickArea(mousePosition))
+            if (Input.GetMouseButtonDown(0))
             {
                 joystickStartPosition = mousePosition;
                 joystickParent.SetActive(true);
@@ -98,12 +98,9 @@ public class InputController : MonoBehaviour
             {
                 case TouchPhase.Began:
                     {
-                        if (IsPositionInJoystickArea(mousePosition))
-                        {
-                            joystickStartPosition = mousePosition;
-                            joystickParent.SetActive(true);
-                            joystickInputActive = true;
-                        }
+                        joystickStartPosition = mousePosition;
+                        joystickParent.SetActive(true);
+                        joystickInputActive = true;
                         break;
                     }
 
@@ -134,12 +131,6 @@ public class InputController : MonoBehaviour
     private void UpdateJoystickBackgroundSize()
     {
         joystickBackground.sizeDelta = new Vector2(2 * joystickMaxRadius, 2 * joystickMaxRadius);
-    }
-
-    private bool IsPositionInJoystickArea(Vector2 position)
-    {
-        // Don't ovelap with the buttons at the bottom of the screen
-        return position.y > 240f;
     }
 
     public static Vector2 JoystickInput { get; private set; }
