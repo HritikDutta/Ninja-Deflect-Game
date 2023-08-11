@@ -1090,7 +1090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &939429913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2131,7 +2131,7 @@ MonoBehaviour:
         DebugActive: 0
         RepeatUntilStopped: 0
         CameraShakeProperties:
-          Duration: 0.2
+          Duration: 0.25
           Amplitude: 0.07
           Frequency: 30
           AmplitudeX: 0

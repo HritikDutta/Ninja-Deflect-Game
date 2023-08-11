@@ -14,11 +14,10 @@ public class Enemy : MonoBehaviour, IDamageDealer
     private Collider myCollider;
 
     HashSet<Projectile> hitProjectiles = new HashSet<Projectile>();
-    private bool despawned = false;
 
     private void Update()
     {
-        if (despawned)
+        if (Despawned)
             return;
 
         transform.position += GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back;
@@ -26,7 +25,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     private void OnCollisionStay(Collision collision)
     {
-        if (despawned)
+        if (Despawned)
             return;
 
         if (((1 << collision.gameObject.layer) & projectileLayerMask) == 0)
@@ -36,10 +35,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
         // Only take damage from deflected projectiles
         if (!projectile.deflected)
-        {
-            projectile.Despawn(null);
             return;
-        }
 
         // Don't take damage from the same projectile more than once!
         if (hitProjectiles.Contains(projectile))
@@ -60,14 +56,14 @@ public class Enemy : MonoBehaviour, IDamageDealer
     public void Spawn()
     {
         myCollider = GetComponent<Collider>();
-        despawned = false;
+        Despawned = false;
     }
 
     public void Despawn(TownCollider town)
     {
         Spawner.instance.DespawnEnemy(gameObject);
         myCollider.enabled = false;
-        despawned = true;
+        Despawned = true;
 
         if (town != null)
             StartCoroutine(AttackCoroutine(town));
@@ -111,6 +107,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
     }
 
     public float Damage => Health * GameSettings.instance.enemyParameters.damage;
-
     private int Health => units.Count;
+    public bool Despawned { get; private set; }
 }
