@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
 
     [SerializeField] private List<EnemyUnit> units = new List<EnemyUnit>();
 
-    private List<Projectile> deflectedProjectiles = new List<Projectile>();
     private Collider myCollider;
 
     HashSet<Projectile> hitProjectiles = new HashSet<Projectile>();
@@ -23,18 +22,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
             return;
 
         transform.position += GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back;
-
-        foreach (Projectile projectile in deflectedProjectiles)
-        {
-            float distance = (transform.position - projectile.transform.position).magnitude;
-            if (distance >= 0.1f)
-                projectile.moveDirection = (transform.position - projectile.transform.position) / distance;
-        }
-    }
-
-    public void AddDeflectedProjectile(Projectile projectile)
-    {
-        deflectedProjectiles.Add(projectile);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -58,7 +45,6 @@ public class Enemy : MonoBehaviour, IDamageDealer
         if (hitProjectiles.Contains(projectile))
             return;
 
-        deflectedProjectiles.Remove(projectile);
         hitProjectiles.Add(projectile);
 
         {   // Kill one unit
@@ -94,10 +80,10 @@ public class Enemy : MonoBehaviour, IDamageDealer
         for (int i = 0; i < units.Count; i++)
         {
             units[i].Animator.SetTrigger("Attack");
-            AudioController.PlayAudioClipOneShot(AudioController.instance.ogreAttack);
+            //AudioController.PlayAudioClipOneShot(AudioController.instance.ogreAttack);
         }
 
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1f);
         town.AddOrReduceHealth(-Damage);
         Destroy(gameObject);
     }

@@ -1,8 +1,10 @@
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class TownCollider : MonoBehaviour
 {
     [SerializeField] private LayerMask damageLayers;
+    [SerializeField] private MMF_Player feelPackagePlayer;
 
     private float health = 0f;
 
@@ -31,6 +33,9 @@ public class TownCollider : MonoBehaviour
     {
         health = Mathf.Min(health + additional, GameSettings.instance.townMaxHealth);
         UIController.instance.townHealthUISlider.value = health / GameSettings.instance.townMaxHealth;
+
+        if (additional < 0f)
+            feelPackagePlayer.PlayFeedbacks();
     }
 
     public void ResetTown()

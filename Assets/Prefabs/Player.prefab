@@ -2023,6 +2023,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   deflectEffect: {fileID: 1227979191086829360}
+  feelPackagePlayer: {fileID: 0}
 --- !u!1 &7819023653320244213
 GameObject:
   m_ObjectHideFlags: 0

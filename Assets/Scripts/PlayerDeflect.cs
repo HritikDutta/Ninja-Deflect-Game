@@ -38,7 +38,6 @@ public class PlayerDeflect : MonoBehaviour
         {
             Enemy enemy = Spawner.instance.spawnedEnemies[0].GetComponent<Enemy>();
             projectile.Deflect((enemy.transform.position - other.transform.position).normalized);
-            enemy.AddDeflectedProjectile(projectile);
         }
         else
         {

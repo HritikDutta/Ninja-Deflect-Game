@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -47,5 +48,10 @@ public class UIController : MonoBehaviour
     {
         annihilateButtonText.text = $"Annihilate\n{GameSettings.instance.annihilateCost} coins";
         healButtonText.text = $"Heal Town\n{GameSettings.instance.healCost} coins";
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -391,6 +391,7 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 384
+  feelPackagePlayer: {fileID: 0}
 --- !u!1001 &5841642302151467591
 PrefabInstance:
   m_ObjectHideFlags: 0
