@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641407, b: 0.5748155, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402406, g: 0.49316776, b: 0.57223225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1030,7 +1030,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898919267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 5.71}
+  m_LocalPosition: {x: 0, y: 0.1015, z: 5.71}
   m_LocalScale: {x: 0.6, y: 0.1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1055,22 +1055,22 @@ MonoBehaviour:
     spawnInterval: 0.5
     spawnDelay: 0
     spawnPoints:
-    - {x: -0.3, y: 0.1, z: 5.71}
-    - {x: -0.20000002, y: 0.1, z: 5.71}
-    - {x: -0.10000002, y: 0.1, z: 5.71}
-    - {x: -0.000000014901161, y: 0.1, z: 5.71}
-    - {x: 0.09999999, y: 0.1, z: 5.71}
-    - {x: 0.19999999, y: 0.1, z: 5.71}
-    - {x: 0.29999998, y: 0.1, z: 5.71}
+    - {x: -0.3, y: 0.1015, z: 5.71}
+    - {x: -0.20000002, y: 0.1015, z: 5.71}
+    - {x: -0.10000002, y: 0.1015, z: 5.71}
+    - {x: -0.000000014901161, y: 0.1015, z: 5.71}
+    - {x: 0.09999999, y: 0.1015, z: 5.71}
+    - {x: 0.19999999, y: 0.1015, z: 5.71}
+    - {x: 0.29999998, y: 0.1015, z: 5.71}
   enemySpawnParameters:
     rowCount: 3
     prefab: {fileID: 4874109497345891070, guid: ddd414c9bea552c4cb4b8f9a4a69819f, type: 3}
     spawnInterval: 3
     spawnDelay: 2.6
     spawnPoints:
-    - {x: -0.3, y: 0.1, z: 5.71}
-    - {x: 0, y: 0.1, z: 5.71}
-    - {x: 0.3, y: 0.1, z: 5.71}
+    - {x: -0.3, y: 0.051499996, z: 5.71}
+    - {x: 0, y: 0.051499996, z: 5.71}
+    - {x: 0.3, y: 0.051499996, z: 5.71}
   pickUpPrefab: {fileID: 6586384589928589572, guid: cfa9266cb6fa76044ab826e7399ce6dc, type: 3}
   spawnedProjectiles: []
   spawnedEnemies: []
@@ -2225,6 +2225,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1766460901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6638321837411861893, guid: 43be09bc52bfd7c44b48af104e7d7b63, type: 3}
+  m_PrefabInstance: {fileID: 5841642302572667465}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd5ef6af4e1cfa48ae3a69f55d6a342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1832867111
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,7 +2750,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1766460901}
         m_TargetAssemblyTypeName: TownCollider, Assembly-CSharp
         m_MethodName: ResetTown
         m_Mode: 1

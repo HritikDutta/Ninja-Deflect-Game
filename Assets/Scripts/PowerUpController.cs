@@ -38,7 +38,7 @@ public class PowerUpController : MonoBehaviour
 
     public void HealTown()
     {
-        town.AddHealth(GameSettings.instance.powerUpHealAmount);
+        town.AddOrReduceHealth(GameSettings.instance.powerUpHealAmount);
         Coins -= GameSettings.instance.healCost;
         UpdateButtons();
     }

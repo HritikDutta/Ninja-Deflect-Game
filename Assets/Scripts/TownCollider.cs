@@ -31,7 +31,7 @@ public class TownCollider : MonoBehaviour
         }
     }
 
-    public void AddHealth(float additional)
+    public void AddOrReduceHealth(float additional)
     {
         health = Mathf.Min(health + additional, GameSettings.instance.townMaxHealth);
         UIController.instance.townHealthUISlider.value = health / GameSettings.instance.townMaxHealth;

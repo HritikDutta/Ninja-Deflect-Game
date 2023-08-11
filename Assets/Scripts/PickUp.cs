@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour
@@ -12,7 +11,7 @@ public class PickUp : MonoBehaviour
     public void Spawn()
     {
         collected = false;
-        StartCoroutine(ReduceSizeOverTime());
+        //StartCoroutine(ReduceSizeOverTime());
     }
 
     private void Update()
@@ -47,5 +46,6 @@ public class PickUp : MonoBehaviour
         AudioController.PlayAudioClipOneShot(AudioController.instance.coinCollectClip);
 
         collected = true;
+        Destroy(gameObject);
     }
 }

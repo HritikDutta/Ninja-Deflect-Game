@@ -80,11 +80,13 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void SpawnProjectilesAroundPosition(Vector3 position)
+    public void SpawnExtraProjectiles(Vector3 position)
     {
+        Vector3 spawnPosition = position;
+        spawnPosition.y = transform.position.y;
+
         for (int i = 0; i < GameSettings.instance.enemyProjectileDropCount; i++)
         {
-            Vector3 spawnPosition = position;
             spawnPosition.z += GameSettings.instance.enemyProjectileDropGap * i;
 
             GameObject go = Instantiate(projectileSpawnParameters.prefab, spawnPosition, Quaternion.identity);
@@ -95,6 +97,8 @@ public class Spawner : MonoBehaviour
 
     public void SpawnPickUp(Vector3 position)
     {
+        position.y = transform.position.y;
+
         GameObject go = Instantiate(pickUpPrefab, position, Quaternion.identity);
         go.GetComponent<PickUp>().Spawn();
         spawnedPickups.Add(go);
@@ -190,7 +194,7 @@ public class Spawner : MonoBehaviour
             float offset = enemySpawnParameters.rowCount > 1 ? transform.localScale.x / (enemySpawnParameters.rowCount - 1) : 0f;
             Vector3 point = transform.position;
             point.x -= offset * (enemySpawnParameters.rowCount / 2);
-            //point.z += .5f;
+            point.y -= transform.localScale.y / 2f;
 
             enemySpawnParameters.spawnPoints = new Vector3[enemySpawnParameters.rowCount];
             for (int i = 0; i < enemySpawnParameters.rowCount; i++)

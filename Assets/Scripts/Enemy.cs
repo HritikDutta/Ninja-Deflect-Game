@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
         myCollider.enabled = false;
 
         if (health <= 0 && Random.Range(0f, 1f) <= GameSettings.instance.enemyProjectileDropChance)
-            Spawner.instance.SpawnProjectilesAroundPosition(transform.position);
+            Spawner.instance.SpawnExtraProjectiles(transform.position);
 
         Spawner.instance.SpawnPickUp(transform.position);
 
