@@ -1,3 +1,4 @@
+using Lofelt.NiceVibrations;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
@@ -9,14 +10,15 @@ public class PlayerDeflect : MonoBehaviour
     [SerializeField]
     private ParticleSystem deflectEffect;
 
-    [SerializeField]
-    private MMF_Player feelPackagePlayer;
-
     private Animator animator;
+    private HapticSource hapticSource;
+    private MMF_Player feelPackagePlayer;
 
     private void Start()
     {
         animator = transform.parent.GetComponentInChildren<Animator>();
+        hapticSource = GetComponent<HapticSource>();
+        feelPackagePlayer = GetComponent<MMF_Player>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +35,7 @@ public class PlayerDeflect : MonoBehaviour
 
         //AudioController.PlayAudioClipOneShot(AudioController.instance.swordHitClip);
         feelPackagePlayer.PlayFeedbacks();
+        hapticSource.Play();
 
         if (Spawner.instance.spawnedEnemies.Count > 0)
         {

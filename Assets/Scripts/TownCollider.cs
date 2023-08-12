@@ -1,15 +1,21 @@
+using Lofelt.NiceVibrations;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class TownCollider : MonoBehaviour
 {
     [SerializeField] private LayerMask damageLayers;
-    [SerializeField] private MMF_Player feelPackagePlayer;
+    
+    private MMF_Player feelPackagePlayer;
+    private HapticSource hapticSource;
 
     private float health = 0f;
 
     private void Start()
     {
+        feelPackagePlayer = GetComponent<MMF_Player>();
+        hapticSource = GetComponent<HapticSource>();
+
         ResetTown();
     }
 
@@ -35,7 +41,10 @@ public class TownCollider : MonoBehaviour
         UIController.instance.townHealthUISlider.value = health / GameSettings.instance.townMaxHealth;
 
         if (additional < 0f)
+        {
             feelPackagePlayer.PlayFeedbacks();
+            hapticSource.Play();
+        }
     }
 
     public void ResetTown()
