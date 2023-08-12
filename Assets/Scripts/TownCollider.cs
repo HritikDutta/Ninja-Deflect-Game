@@ -24,7 +24,7 @@ public class TownCollider : MonoBehaviour
         if (((1 << other.gameObject.layer) & damageLayers) == 0)
             return;
 
-        IDamageDealer dealer = other.GetComponent<IDamageDealer>();
+        ISpawnObject dealer = other.GetComponent<ISpawnObject>();
         dealer.Despawn(this);
 
         if (health <= 0f)
@@ -43,6 +43,9 @@ public class TownCollider : MonoBehaviour
         if (additional < 0f)
         {
             feelPackagePlayer.PlayFeedbacks();
+
+            // More damage == More vibration
+            hapticSource.level = -additional / (GameSettings.instance.enemyParameters.damage * 4);
             hapticSource.Play();
         }
     }

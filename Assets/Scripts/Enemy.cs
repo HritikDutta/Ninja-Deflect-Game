@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using WarriorAnims;
 
-public class Enemy : MonoBehaviour, IDamageDealer
+public class Enemy : MonoBehaviour, ISpawnObject
 {
     [SerializeField] private LayerMask projectileLayerMask;
     [SerializeField] private ParticleSystem damageParticleEffect;
@@ -12,15 +10,17 @@ public class Enemy : MonoBehaviour, IDamageDealer
     [SerializeField] private List<EnemyUnit> units = new List<EnemyUnit>();
 
     private Collider myCollider;
+    private Rigidbody rb;
 
     HashSet<Projectile> hitProjectiles = new HashSet<Projectile>();
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Despawned)
             return;
 
-        transform.position += GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back;
+        rb.MovePosition(rb.position + GameSettings.instance.enemyParameters.moveSpeed * Time.deltaTime * Vector3.back);
+        rb.velocity = Vector3.zero;
     }
 
     private void OnCollisionStay(Collision collision)
@@ -56,6 +56,7 @@ public class Enemy : MonoBehaviour, IDamageDealer
     public void Spawn()
     {
         myCollider = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
         Despawned = false;
     }
 
@@ -106,7 +107,8 @@ public class Enemy : MonoBehaviour, IDamageDealer
             unit.SetToDestroy(2.3f);
     }
 
-    public float Damage => Health * GameSettings.instance.enemyParameters.damage;
+    private float Damage => Health * GameSettings.instance.enemyParameters.damage;
     private int Health => units.Count;
+
     public bool Despawned { get; private set; }
 }

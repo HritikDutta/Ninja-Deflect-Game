@@ -643,7 +643,7 @@ Light:
     m_Type: 2
     m_Resolution: 3
     m_CustomResolution: -1
-    m_Strength: 0.854
+    m_Strength: 0.567
     m_Bias: 0
     m_NormalBias: 0.156
     m_NearPlane: 0.59
@@ -1206,7 +1206,7 @@ MonoBehaviour:
     - {x: -0.3, y: 0.051499996, z: 5.769}
     - {x: 0, y: 0.051499996, z: 5.769}
     - {x: 0.3, y: 0.051499996, z: 5.769}
-  pickUpPrefab: {fileID: 6586384589928589572, guid: cfa9266cb6fa76044ab826e7399ce6dc, type: 3}
+  pickUpPrefab: {fileID: 6586384589928589572, guid: 59a6ef069a063574a80f440dc863b45d, type: 3}
   spawnedProjectiles: []
   spawnedEnemies: []
   spawnedPickups: []
@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1125366907c22454793ad298328166ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoveSpeed: {x: 1, y: 0.9}
+  playerMoveSpeed: {x: 1.2, y: 1.2}
   projectileParameters:
     damage: 0
     moveSpeed: 0.8
@@ -1449,15 +1449,15 @@ MonoBehaviour:
       time: 0.025
       value: 0
       inSlope: Infinity
-      outSlope: 2.1052632
+      outSlope: 3.6363635
       tangentMode: 71
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.81666666
     - serializedVersion: 3
-      time: 0.5
+      time: 0.3
       value: 1
-      inSlope: 2.1052632
+      inSlope: 3.6363635
       outSlope: Infinity
       tangentMode: 101
       weightedMode: 0
