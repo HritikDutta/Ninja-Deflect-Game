@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class TownCollider : MonoBehaviour
 {
+    public static TownCollider instance;
+
     [SerializeField] private LayerMask damageLayers;
     
     private MMF_Player feelPackagePlayer;
     private HapticSource hapticSource;
 
-    private float health = 0f;
+    private void Awake()
+    {
+        // Only one instance allowed >:(
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     private void Start()
     {
@@ -24,10 +36,10 @@ public class TownCollider : MonoBehaviour
         if (((1 << other.gameObject.layer) & damageLayers) == 0)
             return;
 
-        ISpawnObject dealer = other.GetComponent<ISpawnObject>();
-        dealer.Despawn(this);
+        ISpawnObject spawnObject = other.GetComponent<ISpawnObject>();
+        spawnObject.Despawn();
 
-        if (health <= 0f)
+        if (Health <= 0f)
         {
             UIController.instance.gameOverScreen.SetActive(true);
             InputController.SetEnabled(false);
@@ -37,8 +49,8 @@ public class TownCollider : MonoBehaviour
 
     public void AddOrReduceHealth(float additional)
     {
-        health = Mathf.Min(health + additional, GameSettings.instance.townMaxHealth);
-        UIController.instance.townHealthUISlider.value = health / GameSettings.instance.townMaxHealth;
+        Health = Mathf.Min(Health + additional, GameSettings.instance.townMaxHealth);
+        UIController.instance.townHealthUISlider.value = Health / GameSettings.instance.townMaxHealth;
 
         if (additional < 0f)
         {
@@ -52,7 +64,9 @@ public class TownCollider : MonoBehaviour
 
     public void ResetTown()
     {
-        health = GameSettings.instance.townMaxHealth;
-        UIController.instance.townHealthUISlider.value = health / GameSettings.instance.townMaxHealth;
+        Health = GameSettings.instance.townMaxHealth;
+        UIController.instance.townHealthUISlider.value = Health / GameSettings.instance.townMaxHealth;
     }
+
+    public float Health { get; private set; }
 }

@@ -432,7 +432,7 @@ ModelImporter:
       name: Attack2
       takeName: Take 001
       internalID: 7400000
-      firstFrame: 8
+      firstFrame: 18.2
       lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
@@ -564,7 +564,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 8
     isReadable: 1
   meshes:
     lODScreenPercentages: []

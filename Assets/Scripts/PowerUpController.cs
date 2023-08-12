@@ -56,7 +56,7 @@ public class PowerUpController : MonoBehaviour
                 for (int i = 0; i < colliders.Length; i++)
                 {
                     ISpawnObject spawnObject = colliders[0].GetComponent<ISpawnObject>();
-                    spawnObject.Despawn(null);
+                    spawnObject.Despawn();
                 }
             }
 

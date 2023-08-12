@@ -97,10 +97,21 @@ public class Spawner : MonoBehaviour
 
     public void SpawnPickUp(Vector3 position)
     {
-        position.y = transform.position.y;
+        // Too many pickups have already been spawned!
+        if (spawnedPickups.Count >= GameSettings.instance.maxPickupsInGame)
+            return;
 
+        {   // Only spawn based on probabilty of spawning health pickups
+            float t = TownCollider.instance.Health / GameSettings.instance.townMaxHealth;
+            float probabilityOfSpawn = GameSettings.instance.healthPickupDropProbability.Evaluate(t);
+
+            if (Random.Range(0f, 1f) > probabilityOfSpawn)
+                return;
+        }
+
+        position.y = transform.position.y;
         GameObject go = Instantiate(pickUpPrefab, position, Quaternion.identity);
-        go.GetComponent<PickUp>().Spawn();
+        go.GetComponent<HealthPickUp>().Spawn();
         spawnedPickups.Add(go);
     }
 
@@ -141,7 +152,7 @@ public class Spawner : MonoBehaviour
         spawnedProjectiles.Remove(projectile);
     }
     
-    public void DespawnPickups(GameObject pickup)
+    public void DespawnPickup(GameObject pickup)
     {
         spawnedPickups.Remove(pickup);
     }

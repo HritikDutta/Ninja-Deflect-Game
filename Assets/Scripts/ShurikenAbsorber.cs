@@ -23,6 +23,6 @@ public class ShurikenAbsorber : MonoBehaviour
 
         // Absorb projectiles if they haven't been deflected yet
         if (!projectile.deflected)
-            projectile.Despawn(null);
+            projectile.Despawn();
     }
 }

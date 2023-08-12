@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour, ISpawnObject
         visualTransform.Rotate(0f, 600f * Speed * Time.deltaTime, 0f);
 
         if (TooFarFromCamera())
-            Despawn(null);
+            DespawnInternal();
     }
 
     private void FixedUpdate()
@@ -38,9 +38,14 @@ public class Projectile : MonoBehaviour, ISpawnObject
         deflected = false;
     }
 
-    public void Despawn(TownCollider town)
+    public void Despawn()
     {
-        town?.AddOrReduceHealth(-Damage);
+        TownCollider.instance.AddOrReduceHealth(-Damage);
+        DespawnInternal();
+    }
+
+    private void DespawnInternal()
+    {
         Spawner.instance.DespawnProjectile(gameObject);
         Destroy(gameObject);
     }

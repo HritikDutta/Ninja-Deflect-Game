@@ -426,7 +426,7 @@ ModelImporter:
       name: Attack1
       takeName: Take 001
       internalID: 7400000
-      firstFrame: 3.3
+      firstFrame: 4
       lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0

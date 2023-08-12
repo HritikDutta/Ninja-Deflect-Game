@@ -432,7 +432,7 @@ ModelImporter:
       name: Attack2_R
       takeName: Take 001
       internalID: 7400000
-      firstFrame: 0
+      firstFrame: 11.5
       lastFrame: 33
       wrapMode: 0
       orientationOffsetY: 0

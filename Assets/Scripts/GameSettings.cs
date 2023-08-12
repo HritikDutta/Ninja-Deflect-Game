@@ -39,10 +39,12 @@ public class GameSettings : MonoBehaviour
     public float enemyProjectileDropChance = 0.3f;
 
     [Header("Town Settings")]
-    public float townMaxHealth = 100;
+    public float townMaxHealth = 100f;
 
     [Header("Pick Up Settings")]
-    public float pickUpDuration = 2f;
+    public int maxPickupsInGame = 3;
+    public float healthPickupHealAmount = 15f;
+    public AnimationCurve healthPickupDropProbability;
 
     [Header("Power Up Settings")]
     public float powerUpExpandSpeed = 2f;

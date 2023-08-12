@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour, ISpawnObject
         }
 
         if (Health <= 0)
-            Despawn(null);
+            Despawn();
     }
 
     public void Spawn()
@@ -60,28 +60,25 @@ public class Enemy : MonoBehaviour, ISpawnObject
         Despawned = false;
     }
 
-    public void Despawn(TownCollider town)
+    public void Despawn()
     {
         Spawner.instance.DespawnEnemy(gameObject);
         myCollider.enabled = false;
         Despawned = true;
 
-        if (town != null)
-            StartCoroutine(AttackCoroutine(town));
+        if (Health > 0)
+            StartCoroutine(AttackCoroutine());
         else
             StartCoroutine(DeathCoroutine());
     }
 
-    IEnumerator AttackCoroutine(TownCollider town)
+    IEnumerator AttackCoroutine()
     {
         for (int i = 0; i < units.Count; i++)
-        {
             units[i].Animator.SetTrigger("Attack");
-            //AudioController.PlayAudioClipOneShot(AudioController.instance.ogreAttack);
-        }
 
         yield return new WaitForSeconds(1f);
-        town.AddOrReduceHealth(-Damage);
+        TownCollider.instance.AddOrReduceHealth(-Damage);
         Destroy(gameObject);
     }
 
