@@ -47,7 +47,7 @@ public class InputController : MonoBehaviour
         }
 
         joystickBackground.position = joystickStartPosition;
-        joystickHead.position = joystickStartPosition + joystickMaxRadius * JoystickInputRaw;
+        joystickHead.position = joystickStartPosition + AdjustedJoystickRadius * JoystickInputRaw;
     }
 
 #if UNITY_EDITOR
@@ -75,7 +75,7 @@ public class InputController : MonoBehaviour
             {
                 Vector2 motion = mousePosition - joystickStartPosition;
 
-                float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
+                float t = Mathf.InverseLerp(0f, AdjustedJoystickRadius, motion.magnitude);
 
                 JoystickInputRaw = t * motion.normalized;
                 JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
@@ -103,7 +103,7 @@ public class InputController : MonoBehaviour
                     {
                         Vector2 motion = mousePosition - joystickStartPosition;
 
-                        float t = Mathf.InverseLerp(0f, joystickMaxRadius, motion.magnitude);
+                        float t = Mathf.InverseLerp(0f, AdjustedJoystickRadius, motion.magnitude);
 
                         JoystickInputRaw = t * motion.normalized;
                         JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
@@ -121,7 +121,7 @@ public class InputController : MonoBehaviour
 
     private void UpdateJoystickBackgroundSize()
     {
-        joystickBackground.sizeDelta = new Vector2(2 * joystickMaxRadius, 2 * joystickMaxRadius);
+        joystickBackground.sizeDelta = new Vector2(2 * AdjustedJoystickRadius, 2 * AdjustedJoystickRadius);
     }
 
     public static Vector2 JoystickInput { get; private set; }
@@ -134,4 +134,6 @@ public class InputController : MonoBehaviour
         instance.joystickParent.SetActive(value);
         instance.inputEnabled = value;
     }
+
+    private float AdjustedJoystickRadius { get { return joystickMaxRadius * Screen.height / 2160f; } }
 }

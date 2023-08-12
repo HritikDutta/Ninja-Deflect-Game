@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
-
     private Rigidbody rb;
     private Vector3 startPosition;
 
@@ -25,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 movement = moveSpeed * Time.fixedDeltaTime * InputController.JoystickInput;
+        Vector2 movement = GameSettings.instance.playerMoveSpeed * Time.fixedDeltaTime * InputController.JoystickInput;
 
         Vector3 targetPosition = rb.position;
         targetPosition.x += movement.x;

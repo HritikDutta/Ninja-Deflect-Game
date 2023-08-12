@@ -2529,7 +2529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9435fad2710fa948bec354b58b26899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.3
 --- !u!1001 &1426128254247554050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2604,6 +2603,34 @@ PrefabInstance:
     - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198002382474510258, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198021645461064324, guid: a30cd0ba5c00c6d459196515ec56574a, type: 3}
       propertyPath: playOnAwake

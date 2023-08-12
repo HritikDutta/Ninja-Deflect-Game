@@ -23,6 +23,9 @@ public class GameSettings : MonoBehaviour
         instance = this;
     }
 
+    [Header("Player Settings")]
+    public Vector2 playerMoveSpeed;
+
     [Header("Projectile Settings")]
     public BehaviourParameters projectileParameters;
     public float projectileDeflectSpeed = 1.2f;
