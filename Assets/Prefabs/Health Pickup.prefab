@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8716630356383509787}
   - component: {fileID: 2879608248936735338}
   m_Layer: 0
-  m_Name: CoinObj
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984763518358541624}
-  m_Mesh: {fileID: 9042771077998628582, guid: 04f173fa3b6d8ca49905ca745b8890d4, type: 3}
+  m_Mesh: {fileID: -6291694943802634737, guid: 04f173fa3b6d8ca49905ca745b8890d4, type: 3}
 --- !u!23 &2879608248936735338
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61,6 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: 96c8555ec9686f04589a070634300350, type: 2}
   - {fileID: 2100000, guid: 320802fcb7f9c054b9409cce30f4fc16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

@@ -20,9 +20,11 @@ public class HealthPickUp : MonoBehaviour, ISpawnObject
         collected = false;
         spawnPosition = visualTransform.position;
 
-        Vector3 position = visualTransform.position;
-        position.y += spawnHeightOffset;
-        visualTransform.position = position;
+        {   // Visual Transform
+            Vector3 position = visualTransform.position;
+            position.y += spawnHeightOffset;
+            visualTransform.position = position;
+        }
     }
 
     public void Despawn()
@@ -40,9 +42,11 @@ public class HealthPickUp : MonoBehaviour, ISpawnObject
         {
             float newYPosition = Mathf.Max(visualTransform.position.y - fallSpeed * Time.deltaTime, spawnPosition.y);
 
-            Vector3 position = visualTransform.position;
-            position.y = newYPosition;
-            visualTransform.position = position;
+            {   // Visual Transform
+                Vector3 position = visualTransform.position;
+                position.y = newYPosition;
+                visualTransform.position = position;
+            }
         }
     }
 
