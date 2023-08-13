@@ -89,6 +89,7 @@ public class Enemy : MonoBehaviour, ISpawnObject
 
         Spawner.instance.SpawnExtraProjectiles(transform.position);
         Spawner.instance.SpawnPickUp(transform.position);
+        PowerUpController.instance.AddCoins(1);
 
         yield return new WaitForSeconds(1.8f);
         Destroy(gameObject);
