@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1125366907c22454793ad298328166ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoveSpeed: {x: 1.2, y: 1.2}
+  playerMoveSpeed: {x: 1.3, y: 1.3}
   projectileParameters:
     damage: 0
     moveSpeed: 0.8
@@ -1467,6 +1467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usePCControls: 1
   joystickMaxRadius: 150
+  joystickDeadZone: 0.025
   joystickActivationCurve:
     serializedVersion: 2
     m_Curve:
@@ -1474,24 +1475,15 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      outSlope: 3.3333333
+      tangentMode: 65
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.025
-      value: 0
-      inSlope: Infinity
-      outSlope: 3.6363635
-      tangentMode: 71
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.81666666
-    - serializedVersion: 3
       time: 0.3
       value: 1
-      inSlope: 3.6363635
+      inSlope: 3.3333333
       outSlope: Infinity
       tangentMode: 101
       weightedMode: 0

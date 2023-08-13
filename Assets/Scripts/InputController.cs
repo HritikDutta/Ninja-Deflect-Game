@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
 
     [Header("Joystick Settings")]
     [SerializeField] private float joystickMaxRadius = 10f;
+    [SerializeField] private float joystickDeadZone = 0.025f;
     [SerializeField] private AnimationCurve joystickActivationCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
     [Header("Joystick Visuals")]
@@ -19,6 +20,7 @@ public class InputController : MonoBehaviour
 
     private Vector2 joystickStartPosition;
     private bool inputEnabled = true;
+    private bool joystickCrossedDeadZone = false;
 
     private void Awake()
     {
@@ -39,12 +41,12 @@ public class InputController : MonoBehaviour
 
     void Update()
     {
-        if (!inputEnabled)
-            return;
-
         {   // Joystick Input
             HandleJoystickInput();
         }
+
+        if (!inputEnabled)
+            return;
 
         joystickBackground.position = joystickStartPosition;
         joystickHead.position = joystickStartPosition + AdjustedJoystickRadius * JoystickInputRaw;
@@ -62,6 +64,9 @@ public class InputController : MonoBehaviour
         JoystickInputRaw = JoystickInput = Vector2.zero;
         Vector2 mousePosition = Input.mousePosition;
 
+        if (!inputEnabled)
+            return;
+
 #if UNITY_EDITOR
         if (usePCControls)
         {
@@ -69,16 +74,22 @@ public class InputController : MonoBehaviour
             {
                 joystickStartPosition = mousePosition;
                 joystickParent.SetActive(true);
+                joystickCrossedDeadZone = false;
             }
 
             if (Input.GetMouseButton(0))
             {
                 Vector2 motion = mousePosition - joystickStartPosition;
+                float distance = motion.magnitude;
 
-                float t = Mathf.InverseLerp(0f, AdjustedJoystickRadius, motion.magnitude);
+                float t = Mathf.InverseLerp(0f, AdjustedJoystickRadius, distance);
+                joystickCrossedDeadZone = joystickCrossedDeadZone || t >= joystickDeadZone;
 
-                JoystickInputRaw = t * motion.normalized;
-                JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
+                if (joystickCrossedDeadZone)
+                {
+                    JoystickInputRaw = t * (motion / distance);
+                    JoystickInput = joystickActivationCurve.Evaluate(t) * (motion / distance);
+                }
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -95,6 +106,7 @@ public class InputController : MonoBehaviour
                     {
                         joystickStartPosition = mousePosition;
                         joystickParent.SetActive(true);
+                        joystickCrossedDeadZone = false;
                         break;
                     }
 
@@ -102,11 +114,16 @@ public class InputController : MonoBehaviour
                 case TouchPhase.Moved:
                     {
                         Vector2 motion = mousePosition - joystickStartPosition;
+                        float distance = motion.magnitude;
 
-                        float t = Mathf.InverseLerp(0f, AdjustedJoystickRadius, motion.magnitude);
+                        float t = Mathf.InverseLerp(0f, AdjustedJoystickRadius, distance);
+                        joystickCrossedDeadZone = joystickCrossedDeadZone || t >= joystickDeadZone;
 
-                        JoystickInputRaw = t * motion.normalized;
-                        JoystickInput = joystickActivationCurve.Evaluate(t) * motion.normalized;
+                        if (joystickCrossedDeadZone)
+                        {
+                            JoystickInputRaw = t * (motion / distance);
+                            JoystickInput = joystickActivationCurve.Evaluate(t) * (motion / distance);
+                        }
                         break;
                     }
 
