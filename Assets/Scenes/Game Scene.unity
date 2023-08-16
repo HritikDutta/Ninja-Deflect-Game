@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1125366907c22454793ad298328166ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoveSpeed: {x: 1.2, y: 1.2}
+  playerMoveSpeed: {x: 1, y: 1}
   projectileParameters:
     damage: 0
     moveSpeed: 0.8
